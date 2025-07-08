@@ -1,16 +1,28 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Monetrix.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Monetrix.Models
 {
     public class Loan
     {
         public int LoanId { get; set; }
+
+        [Range(0.01, 999999999999999.99, ErrorMessage = "Amount must be a positive number.")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
+
+        [Required(ErrorMessage = "Interest rate is required.")]
+        [Range(0.01, 100.00, ErrorMessage = "Interest rate must be between 0.01% and 100%.")]
         public decimal InterestRate { get; set; }
-        public DateTime StartDate { get; set; } = DateTime.UtcNow;
-        public DateTime EndDate { get; set; } = DateTime.UtcNow.AddYears(1);
-        public string Status { get; set; } = "Pending"; // e.g., Pending, Approved, Rejected
-        public string Purpose { get; set; } = string.Empty; // e.g., Personal, Business, Education
+
+        [Required(ErrorMessage = "Start date is required.")]
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public LoanStatus Status { get; set; } = LoanStatus.Pending;
+
+        [MaxLength(100, ErrorMessage = "Purpose is too long.")]
+        public string Purpose { get; set; } = string.Empty;
 
         [ForeignKey("AppUser")]
         public string AppUserId { get; set; } = string.Empty;
@@ -18,5 +30,11 @@ namespace Monetrix.Models
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
         public Customer Customer { get; set; } = null!;
+
+        public Loan()
+        {
+            StartDate = DateTime.UtcNow;
+            EndDate = DateTime.UtcNow.AddYears(1);
+        }
     }
 }
