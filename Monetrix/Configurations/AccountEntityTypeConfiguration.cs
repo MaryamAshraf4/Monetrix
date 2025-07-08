@@ -10,6 +10,8 @@ namespace Monetrix.Configurations
         {
             builder.HasIndex(a => a.AccountNumber).IsUnique();
 
+            builder.Property(a => a.AccountType).HasMaxLength(15);
+
             builder.Property(a => a.AccountType).HasConversion<string>();
 
             builder.HasOne(a => a.Customer)

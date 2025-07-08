@@ -8,7 +8,7 @@ namespace Monetrix.Configurations
     {
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {  
-            builder.Property(t => t.TransactionType).HasConversion<string>();
+            builder.Property(t => t.TransactionType).HasMaxLength(12).HasConversion<string>();
 
             builder.Property(t => t.Description).HasMaxLength(200);
 

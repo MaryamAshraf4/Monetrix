@@ -9,9 +9,11 @@ namespace Monetrix.Configurations
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
             builder.HasIndex(u => u.NationalId).IsUnique();
-
             builder.Property(u => u.NationalId).HasMaxLength(14);
 
+            builder.Property(u => u.PhoneNumber).HasMaxLength(11);
+
+            builder.Property(u => u.Position).HasMaxLength(15);
             builder.Property(u => u.Position).HasConversion<string>();
 
             builder.Property(u => u.FullName).HasMaxLength(60).UseCollation("Arabic_CI_AS");

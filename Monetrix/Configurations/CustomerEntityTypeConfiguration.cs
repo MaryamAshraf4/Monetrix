@@ -12,6 +12,8 @@ namespace Monetrix.Configurations
 
             builder.Property(c => c.NationalId).HasMaxLength(14);
 
+            builder.Property(c => c.Gender).HasMaxLength(6);
+
             builder.Property(c => c.FullName).UseCollation("Arabic_CI_AS");
 
             builder.Property(c => c.Phone).HasMaxLength(11);

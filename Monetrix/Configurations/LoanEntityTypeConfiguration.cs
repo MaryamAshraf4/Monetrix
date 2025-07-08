@@ -10,7 +10,7 @@ namespace Monetrix.Configurations
         {
             builder.Property(l => l.InterestRate).HasPrecision(5, 2);
 
-            builder.Property(l => l.Status).HasConversion<string>();
+            builder.Property(l => l.Status).HasMaxLength(10).HasConversion<string>();
 
             builder.HasOne(l => l.AppUser)
                 .WithMany(u => u.Loans)
