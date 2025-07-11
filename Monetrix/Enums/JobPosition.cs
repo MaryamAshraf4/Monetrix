@@ -3,20 +3,23 @@
 namespace Monetrix.Enums
 {
     public enum JobPosition
-    { 
-        [Display(Name = "Bank Teller")]
-        Teller,
-
+    {
         [Display(Name = "Branch Manager")]
         Manager,
+
+        [Display(Name = "Customer Service")]
+        CustomerService,
+
+        [Display(Name = "Bank Teller")]
+        Teller,
 
         [Display(Name = "Accountant")]
         Accountant,
 
-        [Display(Name = "Office Clerk")]
-        Clerk,
-
         [Display(Name = "Loan Officer")]
-        LoanOfficer
+        LoanOfficer,
+
+        [Display(Name = "Auditor")]
+        Auditor
     }
 }

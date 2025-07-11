@@ -24,7 +24,7 @@ namespace Monetrix.Controllers
 
         public async Task<ActionResult> Details(int id)
         {
-            var customer = await _customerRepository.GetCustomerByIdAsync(id);
+            var customer = await _customerRepository.GetCustomerByIdWithAccountsAndLoansAsync(id); ;
             if (customer == null)
                 return NotFound();
             return View(customer);

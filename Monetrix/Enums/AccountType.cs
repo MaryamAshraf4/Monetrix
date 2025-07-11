@@ -2,10 +2,9 @@
 {
     public enum AccountType
     {
-        Unknown,
-        Savings,
-        Current,
-        FixedDeposit,
-        Business
+        Savings=1,
+        Current=2,
+        FixedDeposit=3,
+        Business=4
     }
 }

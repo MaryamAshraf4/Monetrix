@@ -15,6 +15,13 @@ namespace Monetrix.Repository
         {
             return await _context.Customers.FindAsync(id);
         }
+        public async Task<Customer?> GetCustomerByIdWithAccountsAndLoansAsync(int id)
+        {
+            return await _context.Customers
+                .Include(c => c.Accounts)
+                .Include(c => c.Loans)
+                .FirstOrDefaultAsync(c => c.CustomerId == id);
+        }
         public async Task<IEnumerable<Customer>> GetAllCustomersAsync(string? searchString)
         {
             var query = _context.Customers.AsQueryable();
