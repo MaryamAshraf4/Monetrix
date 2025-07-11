@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Monetrix.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Monetrix.Models
 {
@@ -22,8 +24,12 @@ namespace Monetrix.Models
         [EmailAddress(ErrorMessage = "Please enter a valid email address.")]
         public string Email { get; set; } = string.Empty;
 
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
+
         [MaxLength(200, ErrorMessage = "Image path too long.")]
-        public string Image { get; set; } = string.Empty;
+        [RegularExpression(@"^(https?:\/\/.*\.(?:png|jpg))$", ErrorMessage = "Image must be a valid URL ending with .png, .jpg.")]
+        public string? Image { get; set; }
 
         [Required(ErrorMessage = "Address is required.")]
         [MaxLength(250)]
@@ -34,8 +40,7 @@ namespace Monetrix.Models
         [RegularExpression(@"^\d{11}$", ErrorMessage = "Phone number must be 11 digits.")]
         public string Phone { get; set; } = string.Empty;
 
-        [RegularExpression(@"^(Male|Female)$", ErrorMessage = "Must be either 'Male' or 'Female'.")]
-        public string Gender { get; set; } = string.Empty;
+        public Gender Gender { get; set; }
         public ICollection<Account> Accounts { get; set; } = new List<Account>();
         public ICollection<Loan> Loans { get; set; } = new List<Loan>();
     }

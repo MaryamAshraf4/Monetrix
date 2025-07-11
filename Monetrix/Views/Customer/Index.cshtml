@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Monetrix.Models.Customer>
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-success">+ Add Customer</a>
+</p>
+
+<form method="get" asp-action="Index" class="mb-3 d-flex gap-2">
+    <input type="text" name="FullName" value="@ViewData["FullName"]" class="form-control" placeholder="Search by name" />
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th><label asp-for="@Model.First().FullName"></label></th>
+                <th><label asp-for="@Model.First().NationalId"></label></th>
+                <th><label asp-for="@Model.First().Age"></label></th>
+                <th><label asp-for="@Model.First().Email"></label></th>
+                <th><label asp-for="@Model.First().Address"></label></th>
+                <th><label asp-for="@Model.First().Phone"></label></th>
+                <th><label asp-for="@Model.First().Gender"></label></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FullName</td>
+                    <td>@item.NationalId</td>
+                    <td>@item.Age</td>
+                    <td>@item.Email</td>
+                    <td>@item.Address</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Gender</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">No customers found.</div>
+}

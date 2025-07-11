@@ -1,0 +1,32 @@
+﻿@model Monetrix.Models.AppUser
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Employee Details</h2>
+
+<dl class="row">
+
+<dt class="col-sm-2">Full Name</dt>
+<dd class="col-sm-10">@Model.FullName</dd>
+
+<dt class="col-sm-2">National ID</dt>
+<dd class="col-sm-10">@Model.NationalId</dd>
+
+<dt class="col-sm-2">Email</dt>
+<dd class="col-sm-10">@Model.Email</dd>
+
+<dt class="col-sm-2">Position</dt>
+<dd class="col-sm-10">@Model.Position</dd>
+
+<dt class="col-sm-2">Salary</dt>
+<dd class="col-sm-10">@Model.Salary</dd>
+
+<dt class="col-sm-2">Hire Date</dt>
+<dd class="col-sm-10">@Model.HireDate.ToString("yyyy-MM-dd")</dd>
+</dl>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

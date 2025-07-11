@@ -1,0 +1,39 @@
+﻿@model Monetrix.Models.Customer
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Customer Details</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">Image</dt>
+    <dd class="col-sm-10">
+        <img src="@Url.Content(Model.Image ?? "/Images/default.jpg")" alt="Image" width="200" />
+    </dd>
+
+    <dt class="col-sm-2">Full Name</dt>
+    <dd class="col-sm-10">@Model.FullName</dd>
+
+    <dt class="col-sm-2">National ID</dt>
+    <dd class="col-sm-10">@Model.NationalId</dd>
+
+    <dt class="col-sm-2">Age</dt>
+    <dd class="col-sm-10">@Model.Age</dd>
+
+    <dt class="col-sm-2">Email</dt>
+    <dd class="col-sm-10">@Model.Email</dd>
+
+    <dt class="col-sm-2">Address</dt>
+    <dd class="col-sm-10">@Model.Address</dd>
+
+    <dt class="col-sm-2">Phone</dt>
+    <dd class="col-sm-10">@Model.Phone</dd>
+
+    <dt class="col-sm-2">Gender</dt>
+    <dd class="col-sm-10">@Model.Gender</dd>
+</dl>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.CustomerId" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

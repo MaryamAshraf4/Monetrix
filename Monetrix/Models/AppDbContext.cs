@@ -12,10 +12,10 @@ namespace Monetrix.Models
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
         }
-        DbSet<Loan> Loans { get; set; } = null!;
-        DbSet<Account> Accounts { get; set; } = null!;
-        DbSet<AppUser> AppUsers { get; set; } = null!;
-        DbSet<Customer> Customers { get; set; } = null!;
-        DbSet<Transaction> Transactions { get; set; } = null!;
+        public DbSet<Loan> Loans { get; set; } = null!;
+        public DbSet<Account> Accounts { get; set; } = null!;
+        public DbSet<AppUser> AppUsers { get; set; } = null!;
+        public DbSet<Customer> Customers { get; set; } = null!;
+        public DbSet<Transaction> Transactions { get; set; } = null!;
     }
  }

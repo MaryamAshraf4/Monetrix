@@ -3,7 +3,7 @@
 namespace Monetrix.Enums
 {
     public enum JobPosition
-    {
+    { 
         [Display(Name = "Bank Teller")]
         Teller,
 

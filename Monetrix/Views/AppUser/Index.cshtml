@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Monetrix.Models.AppUser>
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<h2>Employees</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">+ Add Employee</a>
+</p>
+
+<form method="get" asp-action="Index" class="mb-3 d-flex gap-2">
+    <input type="text" name="FullName" value="@ViewData["FullName"]" class="form-control" placeholder="Search by name or Email" />
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+@if (Model.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th><label asp-for="@Model.First().FullName"></label></th>
+                <th><label asp-for="@Model.First().NationalId"></label></th>
+                <th><label asp-for="@Model.First().Email"></label></th>
+                <th><label asp-for="@Model.First().Position"></label></th>
+                <th><label asp-for="@Model.First().Salary"></label></th>
+                <th><label asp-for="@Model.First().HireDate"></label></th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.FullName</td>
+                    <td>@user.NationalId</td>
+                    <td>@user.Email</td>
+                    <td>@user.Position</td>
+                    <td>@user.Salary.ToString("C")</td>
+                    <td>@user.HireDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@user.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@user.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">No employees found.</div>
+}

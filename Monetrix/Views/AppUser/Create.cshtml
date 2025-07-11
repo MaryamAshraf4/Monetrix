@@ -1,0 +1,62 @@
+﻿@using Monetrix.Enums
+@model Monetrix.Models.AppUser
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Employee</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <div class="form-group">
+                <label asp-for="FullName"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NationalId"></label>
+                <input asp-for="NationalId" class="form-control" />
+                <span asp-validation-for="NationalId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Position"></label>
+                <select asp-for="Position" asp-items="Html.GetEnumSelectList<JobPosition>()" class="form-control"></select>
+                <span asp-validation-for="Position" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Salary"></label>
+                <input asp-for="Salary" class="form-control" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HireDate"></label>
+                <input asp-for="HireDate" class="form-control" type="date" />
+                <span asp-validation-for="HireDate" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">إضافة</button>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

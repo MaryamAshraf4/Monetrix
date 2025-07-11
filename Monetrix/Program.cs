@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Monetrix.Models;
+using Monetrix.Repository;
+using Monetrix.IRepository;
+using Monetrix.InterFaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,12 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
+
+builder.Services.AddScoped<IUploadFile, UploadFile>();
 
 var app = builder.Build();
 
@@ -20,6 +29,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
