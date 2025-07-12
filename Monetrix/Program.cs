@@ -18,6 +18,8 @@ builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+
 builder.Services.AddScoped<IUploadFile, UploadFile>();
 
 var app = builder.Build();

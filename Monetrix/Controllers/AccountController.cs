@@ -48,7 +48,7 @@ namespace Monetrix.Controllers
                 if (ModelState.IsValid)
                 {                 
                     await _accountRepository.CreateAccountAsync(account);
-                    return RedirectToAction(nameof(Details),nameof(Customer), new { id = account.CustomerId });
+                    return RedirectToAction("Details", "Customer", new { id = account.CustomerId });
                 }
                 return View(account);
             }
@@ -105,10 +105,9 @@ namespace Monetrix.Controllers
             try
             {
                 var account = await _accountRepository.GetAccountByIdAsync(id);
-                int customerId = account.CustomerId;
 
                 await _accountRepository.DeleteAccountAsync(id);
-                return RedirectToAction(nameof(Details), nameof(Customer), new { id = account.CustomerId });
+                return RedirectToAction("Details", "Customer", new { id = account.CustomerId });
             }
             catch
             {

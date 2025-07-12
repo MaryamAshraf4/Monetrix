@@ -13,7 +13,7 @@ namespace Monetrix.Repository
         }
         public async Task<Account> GetAccountByIdAsync(int id)
         {
-            return await _context.Accounts.FindAsync(id);
+            return await _context.Accounts.Include(a => a.Customer).FirstOrDefaultAsync(a => a.AccountId == id);
         }
 
         public async Task<IEnumerable<Account>> GetAllAccountsAsync()
