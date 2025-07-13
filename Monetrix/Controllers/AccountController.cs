@@ -21,7 +21,7 @@ namespace Monetrix.Controllers
 
         public async Task<ActionResult> Details(int id)
         {
-            var account = await _accountRepository.GetAccountByIdAsync(id);
+            var account = await _accountRepository.GetAccouuntByIdWithTransactionAsync(id);
 
             if (account == null)
                 return NotFound();

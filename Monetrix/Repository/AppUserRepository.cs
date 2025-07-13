@@ -12,7 +12,7 @@ namespace Monetrix.Repository
             _context = context;
         }
 
-        public async Task<AppUser> GetAppUserByIdAsync(string id)
+        public async Task<AppUser?> GetAppUserByIdAsync(string id)
         {
             return await _context.AppUsers.FindAsync(id);
         }

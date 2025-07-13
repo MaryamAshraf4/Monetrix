@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Monetrix.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SenderAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReceiverAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppUser)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SenderAccount.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReceiverAccount.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppUser.FullName)
+            </td>
+            <td>
+                <a asp-action="Details" asp-controller="Account" asp-route-id="@item.SenderAccountId">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

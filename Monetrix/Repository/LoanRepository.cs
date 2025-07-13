@@ -33,7 +33,7 @@ namespace Monetrix.Repository
             return await _context.Loans.Include(l => l.AppUser).ToListAsync();
         }
 
-        public async Task<Loan> GetLoanByIdAsync(int id)
+        public async Task<Loan?> GetLoanByIdAsync(int id)
         {
             return await _context.Loans.Include(l => l.AppUser).Include(l => l.Customer).FirstOrDefaultAsync(l => l.LoanId == id);
         }

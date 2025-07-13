@@ -11,7 +11,16 @@ namespace Monetrix.Repository
         {
             _context = context;
         }
-        public async Task<Account> GetAccountByIdAsync(int id)
+        public async Task<Account?> GetAccountByNumberAsync(string accountNumber)
+        {
+            return await _context.Accounts.FirstOrDefaultAsync(a => a.AccountNumber == accountNumber);
+        }
+        public async Task<Account?> GetAccouuntByIdWithTransactionAsync(int id)
+        {
+            return await _context.Accounts.Include(a => a.Customer).Include(a => a.TransactionsSent).ThenInclude(t => t.ReceiverAccount)
+               .Include(a => a.TransactionsReceived).ThenInclude(t => t.SenderAccount).FirstOrDefaultAsync(a => a.AccountId == id);
+        }
+        public async Task<Account?> GetAccountByIdAsync(int id)
         {
             return await _context.Accounts.Include(a => a.Customer).FirstOrDefaultAsync(a => a.AccountId == id);
         }
