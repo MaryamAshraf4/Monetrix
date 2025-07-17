@@ -13,11 +13,14 @@ namespace Monetrix.Models
 
         [Required(ErrorMessage = "Please enter your 14-digit National ID.")]
         [RegularExpression(@"^\d{14}$", ErrorMessage = "National ID must be 14 digits.")]
+        [Display(Name = "National ID")]
+
         public string NationalId { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Full Name is required.")]
         [MaxLength(60)]
         [RegularExpression(@"^([a-zA-Z\u0600-\u06FF]+\s){2,}[a-zA-Z\u0600-\u06FF]+$", ErrorMessage = "Full Name must be at least three words and contain only letters.")]
+        [Display(Name = "Full Name")]
         public string FullName { get; set; } = string.Empty;
 
         [MaxLength(100)]

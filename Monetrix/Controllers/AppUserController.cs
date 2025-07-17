@@ -1,17 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Monetrix.IRepository;
 using Monetrix.Models;
+using Monetrix.ViewModels;
 
 namespace Monetrix.Controllers
 {
     public class AppUserController : Controller
     {
         private readonly IAppUserRepository _AppUserRepository;
+        private readonly UserManager<AppUser> _userManager;
 
-        public AppUserController(IAppUserRepository appUserRepository)
+        public AppUserController(IAppUserRepository appUserRepository, UserManager<AppUser> userManager)
         {
             _AppUserRepository = appUserRepository;
+            _userManager = userManager;
         }
         public async Task<ActionResult> Index(string? FullName)
         {
@@ -33,16 +39,46 @@ namespace Monetrix.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(AppUser appUser)
+        public async Task<ActionResult> Create(RegisterViewModel appUserVm)
         {
             try
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    await _AppUserRepository.CreateAppUserAsync(appUser);
-                    return RedirectToAction(nameof(Index));
-                }               
-                return View(appUser);
+                    var appUser = new AppUser
+                    {
+                        UserName = appUserVm.UserName,
+                        FullName = appUserVm.FullName,
+                        Email = appUserVm.Email,
+                        NationalId = appUserVm.NationalId,
+                        Position = appUserVm.Position,
+                        Salary = appUserVm.Salary,
+                        HireDate = appUserVm.HireDate
+                    };
+
+                    var result = await _userManager.CreateAsync(appUser, appUserVm.Password);
+
+                    if (result.Succeeded)
+                    {
+                        var roleResult = await _userManager.AddToRoleAsync(appUser, appUser.Position.ToString());
+
+                        if (roleResult.Succeeded)
+                        {
+                            return RedirectToAction(nameof(Index));
+                        }
+
+                        foreach (var error in roleResult.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+                    return View(appUserVm);
             }
             catch
             {

@@ -1,12 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Monetrix.IRepository;
 using Monetrix.Models;
+using Monetrix.ViewModels;
 
 namespace Monetrix.Repository
 {
     public class AppUserRepository : IAppUserRepository
     {
         private readonly AppDbContext _context;
+
         public AppUserRepository(AppDbContext context)
         {
             _context = context;
@@ -27,11 +30,6 @@ namespace Monetrix.Repository
             return await query.ToListAsync();
         }
 
-        public async Task CreateAppUserAsync(AppUser appUser)
-        {
-            await _context.AppUsers.AddAsync(appUser);
-            await _context.SaveChangesAsync();
-        }
         public async Task UpdateAppUserAsync(AppUser appUser)
         {
             var oldUser = await GetAppUserByIdAsync(appUser.Id);

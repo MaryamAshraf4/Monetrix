@@ -11,7 +11,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <input type="hidden" asp-for="CustomerId" />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
@@ -20,39 +20,31 @@
             <div class="form-group">
                 <label asp-for="Balance" class="control-label"></label>
                 <input asp-for="Balance" class="form-control" />
-                <span asp-validation-for="Balance" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AccountNumber" class="control-label"></label>
                 <input asp-for="AccountNumber" class="form-control" />
-                <span asp-validation-for="AccountNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AccountType" class="control-label"></label>
                 <select asp-for="AccountType" asp-items="Html.GetEnumSelectList<AccountType>()" class="form-control">
                     <option value="">-- Select Account Type --</option>
                 </select>
-                <span asp-validation-for="AccountType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CreatedDate" class="control-label"></label>
                 <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CloseDate" class="control-label"></label>
                 <input asp-for="CloseDate" class="form-control" />
-                <span asp-validation-for="CloseDate" class="text-danger"></span>
             </div>          
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Details" asp-controller="Customer" asp-route-id="@Model.CustomerId" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Details" asp-controller="Customer" asp-route-id="@Model.CustomerId">Back to List</a>
 </div>
 
 @section Scripts {

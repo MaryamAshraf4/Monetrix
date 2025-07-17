@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Monetrix.IRepository;
 using Monetrix.Models;
@@ -28,7 +29,6 @@ namespace Monetrix.Controllers
 
             return View(account);
         }
-
         public ActionResult Create(int customerId)
         {
             var account = new Account

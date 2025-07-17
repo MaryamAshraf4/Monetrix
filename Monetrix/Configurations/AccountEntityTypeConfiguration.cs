@@ -19,15 +19,15 @@ namespace Monetrix.Configurations
                 .HasForeignKey(a => a.CustomerId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(a => a.TransactionsSent)
-                .WithOne(t => t.SenderAccount)
-                .HasForeignKey(t => t.SenderAccountId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             builder.HasMany(a => a.TransactionsReceived)
                 .WithOne(t => t.ReceiverAccount)
                 .HasForeignKey(t => t.ReceiverAccountId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(a => a.TransactionsSent)
+               .WithOne(t => t.SenderAccount)
+               .HasForeignKey(t => t.SenderAccountId)
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

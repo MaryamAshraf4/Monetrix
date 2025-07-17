@@ -4,8 +4,6 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
 <div>
     <h4>Loan</h4>
     <hr />
@@ -67,7 +65,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.LoanId">Edit</a> |
-    <a asp-action="Delete" asp-route-id="@Model?.LoanId">Delete</a> |
-    <a asp-action="Details" asp-controller="Customer" asp-route-id="@Model?.CustomerId">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.LoanId" class="btn btn-warning">Edit</a> |
+    <a asp-action="Delete" asp-route-id="@Model?.LoanId" class="btn btn-danger">Delete</a> |
+    <a asp-action="Details" asp-controller="Customer" asp-route-id="@Model?.CustomerId" class="btn btn-secondary">Back</a>
 </div>

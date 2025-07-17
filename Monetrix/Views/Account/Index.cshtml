@@ -24,7 +24,8 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CloseDate)
-            </th>          
+            </th>   
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -45,15 +46,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
+            @if(item.CloseDate != null){
             <td>
                 @Html.DisplayFor(modelItem => item.CloseDate)
             </td>
+            }
+            else{
+                <td>Runing</td>
+            }
             <td>
-                @Html.DisplayFor(modelItem => item.Customer.Address)
+                    <a asp-action="Details" asp-controller="Customer" asp-route-id="@item.CustomerId" class="btn btn-sm btn-info">Details</a>
             </td>
-                <td>
-                    <a asp-action="Details" asp-controller="Customer" asp-route-id="@item.CustomerId">Details</a>
-                </td>
         </tr>
 }
     </tbody>

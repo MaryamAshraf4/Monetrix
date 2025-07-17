@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -56,12 +57,18 @@ namespace Monetrix.Controllers
                 ModelState.Remove("AppUser");
                 if (ModelState.IsValid)
                 {
+                    string? userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
-                    var success = await _transactionRepository.CreateTransactionAsync(transactionVm);
+                    if (string.IsNullOrEmpty(userId))
+                    {
+                        return Unauthorized(); 
+                    }
+
+                    var success = await _transactionRepository.CreateTransactionAsync(transactionVm, userId);
 
                     if (!success)
                     {
-                        ModelState.AddModelError("", "Transaction update failed. Please check the data or account balance.");
+                        ModelState.AddModelError("", "Transaction failed. Please check the data or account balance.");
                         return View(transactionVm);
                     }
 
@@ -83,7 +90,14 @@ namespace Monetrix.Controllers
             if (transaction == null)
                 return NotFound();
 
-            var success = await _transactionRepository.ReverseTransactionAsync(id);
+            string? userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            var success = await _transactionRepository.ReverseTransactionAsync(id, userId);
             if (!success)
                 return BadRequest("Failed to reverse transaction");
 

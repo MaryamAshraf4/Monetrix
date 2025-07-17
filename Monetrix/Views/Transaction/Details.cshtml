@@ -42,7 +42,13 @@
             @Html.DisplayNameFor(model => model.ReceiverAccount)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReceiverAccount.AccountNumber)
+            @if (string.IsNullOrEmpty(Model.ReceiverAccount?.AccountNumber))
+            {
+                @Html.DisplayFor(model => model.SenderAccount.AccountNumber)
+            }
+            else{
+                @Html.DisplayFor(model => model.ReceiverAccount.AccountNumber)
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.AppUser)
@@ -57,6 +63,6 @@
         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to reverse this transaction?');">
             Reverse Transaction
         </button>
+        <a asp-action="Details" asp-controller="Account" asp-route-id="@Model?.SenderAccountId" class="btn btn-secondary">Back</a>
     </form>
-    <a asp-action="Details" asp-controller="Account" asp-route-id="@Model?.SenderAccountId">Back to List</a>
 </div>

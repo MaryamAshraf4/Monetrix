@@ -5,67 +5,56 @@
     ViewData["Title"] = "Edit";
 }
 
-<h4>Customer</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" asp-route-id="@Model.CustomerId" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="CustomerId" />          
-            <div>                 
+            <div>
+                <div class="image-container mt-2">
+                    <img id="output" src="@Url.Content(Model.Image ?? "/images/default.jpg")" alt="Image" width="200" />
+                </div>
+
                 <div class="form-group">
                     <label asp-for="ImageFile" class="control-label"></label>
                     <input asp-for="ImageFile" type="file" class="form-control" onchange="loadFile(event)" />
-                    <span asp-validation-for="ImageFile" class="text-danger"></span>
                 </div>
-            <div class="image-container mt-2">
-                <img id="output" src="@Url.Content(Model.Image ?? "/images/default.jpg")" alt="Image" width="200" />
-            </div>
-
+           
             <div class="form-group">
                 <label asp-for="Age" class="control-label"></label>               
                 <input asp-for="Age" class="form-control" />
-                <span asp-validation-for="Age" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NationalId" class="control-label"></label>
                 <input asp-for="NationalId" class="form-control" />
-                <span asp-validation-for="NationalId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FullName" class="control-label"></label>
                 <input asp-for="FullName" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
             </div>          
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
                 <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Phone" class="control-label"></label>
                 <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Gender" class="control-label"></label>
-                    <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-control"></select>
-                    <span asp-validation-for="Gender" class="text-danger"></span>
+                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-control"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

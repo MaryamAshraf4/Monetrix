@@ -5,53 +5,58 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
 <h4>Transaction</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <input type="hidden" asp-for="SenderAccountId" />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Amount" class="control-label"></label>
                 <input asp-for="Amount" class="form-control" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TransactionDate" class="control-label"></label>
                 <input asp-for="TransactionDate" class="form-control" />
-                <span asp-validation-for="TransactionDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TransactionType" class="control-label"></label>
-                <select asp-for="TransactionType" asp-items="Html.GetEnumSelectList<TransactionType>()" class="form-control"></select>
-                <span asp-validation-for="TransactionType" class="text-danger"></span>
+                <select asp-for="TransactionType" asp-items="Html.GetEnumSelectList<TransactionType>()" class="form-control" id="transactionTypeSelect"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <textarea asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
          
-            <div class="form-group">
+            <div class="form-group" id="receiverAccountDiv">
                 <label asp-for="ReceiverAccountNumber" class="control-label"></label>
                 <input asp-for="ReceiverAccountNumber" class="form-control" />
-                <span asp-validation-for="ReceiverAccountNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Details" asp-controller="Account" asp-route-id="@Model.SenderAccountId" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Details" asp-controller="Account" asp-route-id="@Model.SenderAccountId">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function toggleReceiverField() {
+            var type = document.getElementById("transactionTypeSelect").value;
+            var receiverDiv = document.getElementById("receiverAccountDiv");
+
+            if (type == '2' || type == '0') {
+                receiverDiv.style.display = 'none';
+            } else {
+                receiverDiv.style.display = 'block';
+            }
+        }
+
+        document.getElementById("transactionTypeSelect").addEventListener("change", toggleReceiverField);
+        window.onload = toggleReceiverField;
+    </script>
 }

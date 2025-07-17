@@ -5,8 +5,6 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
 <div>
     <h4>Account</h4>
     <hr />
@@ -44,9 +42,16 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CloseDate)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CloseDate)
-        </dd>
+        @if (Model.CloseDate != null)
+        {
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CloseDate)
+            </dd>
+        }
+        else
+        {
+            <dd class ="col-sm-10">Runing</dd>
+        }
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Customer)
         </dt>
@@ -62,29 +67,32 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.AccountId">Edit</a> |
-    <a asp-action="Delete" asp-route-id="@Model?.AccountId">Delete</a> |
-    <a asp-action="Details" asp-controller="Customer" asp-route-id="@Model.CustomerId">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.AccountId" class="btn btn-warning">Edit</a> |
+    <a asp-action="Delete" asp-route-id="@Model?.AccountId" class="btn btn-danger">Delete</a> |
+    <a asp-action="Details" asp-controller="Customer" asp-route-id="@Model.CustomerId" class="btn btn-secondary">Back</a>
 </div>
 <hr />
 
 <h3>Bank Transactions - Sent</h3>
 @if (Model.TransactionsSent != null && Model.TransactionsSent.Any())
 {
-    <table class="table table-bordered">
+    <table class="table">
         <thead class="thead-dark">
             <tr>
                 <th>To Account</th>
                 <th>Type</th>
                 <th>Amount</th>
                 <th>Date</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var transaction in Model.TransactionsSent)
             {
                 <tr>
-                    <td>@transaction.ReceiverAccount?.AccountNumber</td>
+                    <td>
+                        @(string.IsNullOrEmpty(transaction.ReceiverAccount?.AccountNumber) ? transaction.SenderAccount?.AccountNumber : transaction.ReceiverAccount?.AccountNumber)
+                    </td>
                     <td>@transaction.TransactionType</td>
                     <td>@transaction.Amount.ToString("C")</td>
                     <td>@transaction.TransactionDate.ToShortDateString()</td>
@@ -106,13 +114,14 @@ else
 <h3>Bank Transactions - Received</h3>
 @if (Model.TransactionsReceived != null && Model.TransactionsReceived.Any())
 {
-    <table class="table table-bordered">
+    <table class="table">
         <thead class="thead-dark">
             <tr>
                 <th>From Account</th>
                 <th>Type</th>
                 <th>Amount</th>
                 <th>Date</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -137,4 +146,4 @@ else
 }
 
 
-<a asp-controller="Transaction" asp-action="Create" asp-route-accountId="@Model.AccountId" class="btn btn-success">+ Create Transaction</a>
+<a asp-controller="Transaction" asp-action="Create" asp-route-accountId="@Model.AccountId" class="btn btn-success">Create New Transaction</a>

@@ -3,6 +3,8 @@ using Monetrix.Models;
 using Monetrix.Repository;
 using Monetrix.IRepository;
 using Monetrix.InterFaces;
+using Microsoft.AspNetCore.Identity;
+using Monetrix.Classes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,8 @@ builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 
 builder.Services.AddScoped<IUploadFile, UploadFile>();
+
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
 var app = builder.Build();
 
@@ -47,5 +51,11 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await SeedData.SeedRolesAsync(services);
+}
 
 app.Run();

@@ -195,7 +195,7 @@ namespace Monetrix.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("Monetrix.Models.AppUser", b =>
@@ -339,7 +339,7 @@ namespace Monetrix.Migrations
                     b.HasIndex("NationalId")
                         .IsUnique();
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("Monetrix.Models.Loan", b =>
@@ -386,7 +386,7 @@ namespace Monetrix.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Loans");
+                    b.ToTable("Loans", (string)null);
                 });
 
             modelBuilder.Entity("Monetrix.Models.Transaction", b =>
@@ -431,7 +431,7 @@ namespace Monetrix.Migrations
 
                     b.HasIndex("SenderAccountId");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("Transactions", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

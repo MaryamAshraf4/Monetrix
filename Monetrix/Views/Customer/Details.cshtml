@@ -3,8 +3,6 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Customer Details</h2>
-
 <dl class="row">
     <dt class="col-sm-2">Image</dt>
     <dd class="col-sm-10">
@@ -43,13 +41,13 @@
 <h3>Bank Accounts</h3>
 @if (Model.Accounts != null && Model.Accounts.Any())
 {
-    <table class="table table-bordered">
+    <table class="table">
         <thead class="thead-dark">
             <tr>
                 <th>Account Number</th>
                 <th>Type</th>
                 <th>Balance</th>
-                <th>Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -71,21 +69,22 @@ else
 {
     <p class="text-muted">No accounts found.</p>
 }
-<a asp-controller="Account" asp-action="Create" asp-route-customerId="@Model.CustomerId" class="btn btn-success mt-2">+ Add New Account</a>
+<a asp-controller="Account" asp-action="Create" asp-route-customerId="@Model.CustomerId" class="btn btn-success mt-2">Add New Account</a>
 
 <hr />
 
 <h3>Loans</h3>
 @if (Model.Loans != null && Model.Loans.Any())
 {
-    <table class="table table-bordered">
-        <thead>
+    <table class="table">
+        <thead class="thead-dark">
             <tr>
                 <th>Loan Type</th>
                 <th>Amount</th>
                 <th>Status</th>
-                <th>Issued On</th>
-                <th>Actions</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -109,4 +108,4 @@ else
 {
     <p class="text-muted">No loans found.</p>
 }
-<a asp-controller="Loan" asp-action="Create" asp-route-customerId="@Model.CustomerId" class="btn btn-success mt-2">+ Add New Loan</a>
+<a asp-controller="Loan" asp-action="Create" asp-route-customerId="@Model.CustomerId" class="btn btn-success mt-2">Add New Loan</a>

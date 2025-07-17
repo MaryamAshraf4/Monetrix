@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Monetrix.IRepository;
 using Monetrix.Models;
@@ -46,7 +47,14 @@ namespace Monetrix.Controllers
                 ModelState.Remove("AppUser");
                 if (ModelState.IsValid)
                 {
-                    loan.AppUserId = "6c195480-f86b-4fc9-adb9-b052b0ab57e2";
+                    string? userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+                    if (string.IsNullOrEmpty(userId))
+                    {
+                        return Unauthorized(); 
+                    }
+
+                    loan.AppUserId = userId;
 
                     await _loanRepository.AddLoanAsync(loan);
                     return RedirectToAction(nameof(Details), nameof(Customer), new { id = loan.CustomerId });
@@ -78,8 +86,15 @@ namespace Monetrix.Controllers
                 ModelState.Remove("Customer");
                 ModelState.Remove("AppUser");
                 if (ModelState.IsValid)
-                {                   
-                    loan.AppUserId = "6c195480-f86b-4fc9-adb9-b052b0ab57e2";
+                {
+                    string? userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+                    if (string.IsNullOrEmpty(userId))
+                    {
+                        return Unauthorized(); 
+                    }
+
+                    loan.AppUserId = userId;
 
                     await _loanRepository.UpdateLoanAsync(loan);
                     return RedirectToAction(nameof(Details), nameof(Customer), new { id = loan.CustomerId });

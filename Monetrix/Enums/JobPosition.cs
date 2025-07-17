@@ -4,8 +4,7 @@ namespace Monetrix.Enums
 {
     public enum JobPosition
     {
-        [Display(Name = "Branch Manager")]
-        Manager,
+        Admin,
 
         [Display(Name = "Customer Service")]
         CustomerService,

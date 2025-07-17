@@ -1,4 +1,5 @@
 ﻿using Monetrix.Models;
+using Monetrix.ViewModels;
 
 namespace Monetrix.IRepository
 {
@@ -6,7 +7,6 @@ namespace Monetrix.IRepository
     {
         Task<AppUser?> GetAppUserByIdAsync(string id);
         Task<IEnumerable<AppUser>> GetAllAppUsersAsync(string? searchString);
-        Task CreateAppUserAsync(AppUser appUser);
         Task UpdateAppUserAsync(AppUser appUser);
         Task DeleteAppUserAsync(string id);
     }

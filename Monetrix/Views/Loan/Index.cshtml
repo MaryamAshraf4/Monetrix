@@ -28,9 +28,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.AppUser)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer)
-            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -58,7 +56,7 @@
                 @Html.DisplayFor(modelItem => item.AppUser.FullName)
             </td>
             <td>
-                <a asp-action="Details" asp-controller="Customer" asp-route-id="@item.CustomerId">Details</a> 
+                    <a asp-action="Details" asp-controller="Customer" asp-route-id="@item.CustomerId" class="btn btn-sm btn-info">Details</a>
             </td>
         </tr>
 }

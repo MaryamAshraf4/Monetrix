@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot - Copy\**" />
+    <Compile Remove="wwwroot\fonts\**" />
+    <Content Remove="wwwroot - Copy\**" />
+    <Content Remove="wwwroot\fonts\**" />
+    <EmbeddedResource Remove="wwwroot - Copy\**" />
+    <EmbeddedResource Remove="wwwroot\fonts\**" />
+    <None Remove="wwwroot - Copy\**" />
+    <None Remove="wwwroot\fonts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.6">

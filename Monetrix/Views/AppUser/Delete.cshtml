@@ -16,6 +16,9 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FullName)
         </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.NationalId)
         </dt>
@@ -32,7 +35,7 @@
 
     <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="Id" />
-        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
         <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </form>
 </div>

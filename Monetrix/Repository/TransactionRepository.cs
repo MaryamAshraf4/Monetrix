@@ -17,7 +17,7 @@ namespace Monetrix.Repository
             _context = context;
             _accountRepository = accountRepository;
         }
-        public async Task<bool> CreateTransactionAsync(TransactionViewModel transactionVm)
+        public async Task<bool> CreateTransactionAsync(TransactionViewModel transactionVm, string userId)
         {
             var senderAccount = await _accountRepository.GetAccountByIdAsync(transactionVm.SenderAccountId); 
 
@@ -49,7 +49,7 @@ namespace Monetrix.Repository
                 Description = transactionVm.Description,
                 TransactionDate = DateTime.UtcNow,
                 TransactionType = transactionVm.TransactionType,
-                AppUserId = "6c195480-f86b-4fc9-adb9-b052b0ab57e2"
+                AppUserId = userId
             };
 
             _context.Transactions.Add(transaction);
@@ -77,10 +77,10 @@ namespace Monetrix.Repository
         }
         public async Task<Transaction?> GetTransactionByIdAsync(int id)
         {
-            return await _context.Transactions.Include(t => t.AppUser).Include(t => t.ReceiverAccount)
+            return await _context.Transactions.Include(t => t.AppUser).Include(t => t.SenderAccount).Include(t => t.ReceiverAccount)
                 .ThenInclude(a => a.Customer).FirstOrDefaultAsync(t => t.TransactionId == id);
         }
-        public async Task<bool> ReverseTransactionAsync(int transactionId)
+        public async Task<bool> ReverseTransactionAsync(int transactionId, string userId)
         {
             var originalTransaction = await GetTransactionByIdAsync(transactionId);
 
@@ -98,7 +98,7 @@ namespace Monetrix.Repository
                 Description = $"Reverse of transaction #{originalTransaction.TransactionId}",
                 SenderAccountId = originalTransaction.ReceiverAccountId.Value,
                 ReceiverAccountId = originalTransaction.SenderAccountId,
-                AppUserId = "6c195480-f86b-4fc9-adb9-b052b0ab57e2"
+                AppUserId = userId
             };
 
             var sender = await _accountRepository.GetAccountByIdAsync(reverseTransaction.SenderAccountId);
