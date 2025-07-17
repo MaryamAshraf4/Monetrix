@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Monetrix.Controllers
 {
+    [Authorize(Roles = "Admin, Accountant")]
+
     public class AccountController : Controller
     {
         private readonly IAccountRepository _accountRepository;
@@ -14,12 +16,13 @@ namespace Monetrix.Controllers
         {
             _accountRepository = accountRepository;
         }
+        [Authorize(Roles = "Admin, Teller, Accountant, Auditor")]
         public async Task<ActionResult> Index()
         {
             var account = await _accountRepository.GetAllAccountsAsync();
             return View(account);
         }
-
+        [Authorize(Roles = "Admin, Teller, Accountant, Auditor")]
         public async Task<ActionResult> Details(int id)
         {
             var account = await _accountRepository.GetAccouuntByIdWithTransactionAsync(id);

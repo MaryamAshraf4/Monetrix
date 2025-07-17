@@ -9,6 +9,7 @@ using Monetrix.ViewModels;
 
 namespace Monetrix.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AppUserController : Controller
     {
         private readonly IAppUserRepository _AppUserRepository;

@@ -11,6 +11,8 @@ namespace Monetrix.Configurations
             builder.HasIndex(u => u.NationalId).IsUnique();
             builder.Property(u => u.NationalId).HasMaxLength(14);
 
+            builder.HasIndex(u => u.UserName).IsUnique();
+
             builder.Property(u => u.PhoneNumber).HasMaxLength(11);
 
             builder.Property(u => u.Position).HasMaxLength(15);

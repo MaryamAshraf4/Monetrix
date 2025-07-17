@@ -7,6 +7,7 @@ using Monetrix.Models;
 
 namespace Monetrix.Controllers
 {
+    [Authorize(Roles = "Admin, CustomerService")]
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository _customerRepository;
@@ -16,13 +17,14 @@ namespace Monetrix.Controllers
             _customerRepository = customerRepository;
             _uploadFile = uploadFile;
         }
+        [AllowAnonymous]
         public async Task<ActionResult> Index(string? FullName)
         {
             ViewData["FullName"] = FullName;
             var customers = await _customerRepository.GetAllCustomersAsync(FullName);
             return View(customers);
         }
-
+        [AllowAnonymous]
         public async Task<ActionResult> Details(int id)
         {
             var customer = await _customerRepository.GetCustomerByIdWithAccountsAndLoansAsync(id); ;

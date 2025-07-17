@@ -11,6 +11,7 @@ using Monetrix.ViewModels;
 
 namespace Monetrix.Controllers
 {
+    [Authorize(Roles = "Admin, Teller")]
     public class TransactionController : Controller
     {
         private readonly ITransactionRepository _transactionRepository;
@@ -21,12 +22,13 @@ namespace Monetrix.Controllers
             _transactionRepository = transactionRepository;
             _accountRepository = accountRepository;
         }
+        [Authorize(Roles = "Admin, Teller, Accountant, Auditor")]
         public async Task<ActionResult> Index()
         {
             var transaction = await _transactionRepository.GetAllTransactionsAsync();
             return View(transaction);
         }
-
+        [Authorize(Roles = "Admin, Teller, Accountant, Auditor")]
         public async Task<ActionResult> Details(int id)
         {
             var transaction = await _transactionRepository.GetTransactionByIdAsync(id);

@@ -6,6 +6,7 @@ using Monetrix.Models;
 
 namespace Monetrix.Controllers
 {
+    [Authorize(Roles = "Admin, LoanOfficer")]
     public class LoanController : Controller
     {
         private readonly ILoanRepository _loanRepository;
@@ -13,12 +14,13 @@ namespace Monetrix.Controllers
         {
             _loanRepository = loanRepository;
         }
+        [Authorize(Roles = "Admin, LoanOfficer, Auditor")]
         public async Task<ActionResult> Index()
         {
             var loan = await _loanRepository.GetAllLoansAsync();
             return View(loan);
         }
-
+        [Authorize(Roles = "Admin, LoanOfficer, Auditor")]
         public async Task<ActionResult> Details(int id)
         {
             var loan = await _loanRepository.GetLoanByIdAsync(id);
@@ -28,7 +30,6 @@ namespace Monetrix.Controllers
 
             return View(loan);
         }
-
         public ActionResult Create(int customerId)
         {
             var loan = new Loan { 

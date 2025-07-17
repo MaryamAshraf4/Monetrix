@@ -32,80 +32,94 @@
 </dl>
 
 <div class="mt-3">
-    <a asp-action="Edit" asp-route-id="@Model.CustomerId" class="btn btn-warning">Edit</a>
+    @if (User.IsInRole("Admin") || User.IsInRole("CustomerService"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.CustomerId" class="btn btn-warning">Edit</a>
+    }
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 <hr />
 
-<h3>Bank Accounts</h3>
-@if (Model.Accounts != null && Model.Accounts.Any())
+@if (User.IsInRole("Admin") || User.IsInRole("Accountant") && User.IsInRole("Auditor") || User.IsInRole("Teller"))
 {
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th>Account Number</th>
-                <th>Type</th>
-                <th>Balance</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var account in Model.Accounts)
-            {
+    <h3>Bank Accounts</h3>
+    @if (Model.Accounts != null && Model.Accounts.Any())
+    {
+        <table class="table">
+            <thead class="thead-dark">
                 <tr>
-                    <td>@account.AccountNumber</td>
-                    <td>@account.AccountType</td>
-                    <td>@account.Balance.ToString("C")</td>
-                    <td>
-                        <a asp-controller="Account" asp-action="Details" asp-route-id="@account.AccountId" class="btn btn-sm btn-info">Details</a>
-                    </td>
+                    <th>Account Number</th>
+                    <th>Type</th>
+                    <th>Balance</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var account in Model.Accounts)
+                {
+                    <tr>
+                        <td>@account.AccountNumber</td>
+                        <td>@account.AccountType</td>
+                        <td>@account.Balance.ToString("C")</td>
+                        <td>
+                            <a asp-controller="Account" asp-action="Details" asp-route-id="@account.AccountId" class="btn btn-sm btn-info">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-muted">No accounts found.</p>
+    }
+    @if (!User.IsInRole("Auditor") || !User.IsInRole("Teller"))
+    {
+        <a asp-controller="Account" asp-action="Create" asp-route-customerId="@Model.CustomerId" class="btn btn-success mt-2">Add New Account</a>
+    }
 }
-else
-{
-    <p class="text-muted">No accounts found.</p>
-}
-<a asp-controller="Account" asp-action="Create" asp-route-customerId="@Model.CustomerId" class="btn btn-success mt-2">Add New Account</a>
-
 <hr />
 
-<h3>Loans</h3>
-@if (Model.Loans != null && Model.Loans.Any())
+@if (User.IsInRole("Admin") || User.IsInRole("LoanOfficer") || User.IsInRole("Auditor"))
 {
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th>Loan Type</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var loan in Model.Loans)
-            {
+    <h3>Loans</h3>
+    @if (Model.Loans != null && Model.Loans.Any())
+    {
+        <table class="table">
+            <thead class="thead-dark">
                 <tr>
-                    <td>@loan.Purpose</td> 
-                    <td>@loan.Amount.ToString("C")</td>
-                    <td>@loan.Status</td>
-                    <td>@loan.StartDate.ToShortDateString()</td>
-                    <td>@loan.EndDate.ToShortDateString()</td>
-                    <td>
-                        <a asp-controller="Loan" asp-action="Details" asp-route-id="@loan.LoanId" class="btn btn-sm btn-info">Details</a>
-                    </td>
+                    <th>Loan Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var loan in Model.Loans)
+                {
+                    <tr>
+                        <td>@loan.Purpose</td>
+                        <td>@loan.Amount.ToString("C")</td>
+                        <td>@loan.Status</td>
+                        <td>@loan.StartDate.ToShortDateString()</td>
+                        <td>@loan.EndDate.ToShortDateString()</td>
+                        <td>
+                            <a asp-controller="Loan" asp-action="Details" asp-route-id="@loan.LoanId" class="btn btn-sm btn-info">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-muted">No loans found.</p>
+    }
+    @if (!User.IsInRole("Auditor"))
+    {
+        <a asp-controller="Loan" asp-action="Create" asp-route-customerId="@Model.CustomerId" class="btn btn-success mt-2">Add New Loan</a>
+    }
 }
-else
-{
-    <p class="text-muted">No loans found.</p>
-}
-<a asp-controller="Loan" asp-action="Create" asp-route-customerId="@Model.CustomerId" class="btn btn-success mt-2">Add New Loan</a>

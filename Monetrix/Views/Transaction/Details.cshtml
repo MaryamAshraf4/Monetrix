@@ -60,9 +60,12 @@
 </div>
 <div>
     <form asp-action="Reverse" method="post" asp-route-id="@Model.TransactionId">
-        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to reverse this transaction?');">
-            Reverse Transaction
+        @if (User.IsInRole("Admin") || User.IsInRole("Teller"))
+        {
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to reverse this transaction?');">
+                Reverse Transaction
         </button>
+        }
         <a asp-action="Details" asp-controller="Account" asp-route-id="@Model?.SenderAccountId" class="btn btn-secondary">Back</a>
     </form>
 </div>
