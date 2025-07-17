@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Monetrix.Classes;
+using Monetrix.InterFaces;
+using Monetrix.IRepository;
+using Monetrix.MiddleWares;
 using Monetrix.Models;
 using Monetrix.Repository;
-using Monetrix.IRepository;
-using Monetrix.InterFaces;
-using Microsoft.AspNetCore.Identity;
-using Monetrix.Classes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ForcePasswordChangeMiddleware>();
 
 app.MapStaticAssets();
 

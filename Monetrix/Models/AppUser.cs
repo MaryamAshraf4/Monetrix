@@ -17,6 +17,7 @@ namespace Monetrix.Models
 
         [Column(TypeName = "decimal(10,2)")]
         public decimal Salary { get; set; }
+        public bool IsFirstLogin { get; set; } = true;
         public DateTime HireDate { get; set; } = DateTime.UtcNow;
         public ICollection<Loan> Loans { get; set; } = new List<Loan>();
         public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();

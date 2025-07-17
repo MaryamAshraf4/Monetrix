@@ -38,6 +38,10 @@ namespace Monetrix.Controllers
                         if (found)
                         {
                             await _signInManager.SignInAsync(appUser, userVm.RememberMe);
+                            if (appUser.IsFirstLogin)
+                            {
+                                return RedirectToAction("ChangePassword");
+                            }
                             return RedirectToAction("Index", "Home");
                         }
                     }
@@ -63,6 +67,39 @@ namespace Monetrix.Controllers
             {
                 return View();
             }
+        }
+
+        public async Task<ActionResult> ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel changePasswordVm)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+
+                if (user == null)
+                    return RedirectToAction("Login");
+
+                var result = await _userManager.ChangePasswordAsync(user, changePasswordVm.CurrentPassword, changePasswordVm.NewPassword);
+
+                if (result.Succeeded)
+                {
+                    user.IsFirstLogin = false;
+                    await _signInManager.RefreshSignInAsync(user);
+                    await _signInManager.SignOutAsync();
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError("", error.Description);
+            }
+
+            return View(changePasswordVm);
         }
     }
 }
