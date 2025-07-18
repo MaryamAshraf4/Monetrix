@@ -90,8 +90,8 @@ namespace Monetrix.Controllers
                 if (result.Succeeded)
                 {
                     user.IsFirstLogin = false;
+                    await _userManager.UpdateAsync(user);
                     await _signInManager.RefreshSignInAsync(user);
-                    await _signInManager.SignOutAsync();
                     return RedirectToAction("Index", "Home");
                 }
 

@@ -54,7 +54,8 @@ namespace Monetrix.Controllers
                         NationalId = appUserVm.NationalId,
                         Position = appUserVm.Position,
                         Salary = appUserVm.Salary,
-                        HireDate = appUserVm.HireDate
+                        HireDate = appUserVm.HireDate,
+                        IsFirstLogin = true
                     };
 
                     var result = await _userManager.CreateAsync(appUser, appUserVm.Password);
