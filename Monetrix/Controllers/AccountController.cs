@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 
 namespace Monetrix.Controllers
 {
-    [Authorize(Roles = "Admin, Accountant")]
-
     public class AccountController : Controller
     {
         private readonly IAccountRepository _accountRepository;
@@ -32,6 +30,7 @@ namespace Monetrix.Controllers
 
             return View(account);
         }
+        [Authorize(Roles = "Admin, Accountant")]
         public ActionResult Create(int customerId)
         {
             var account = new Account
@@ -40,7 +39,7 @@ namespace Monetrix.Controllers
             };
             return View(account);
         }
-
+        [Authorize(Roles = "Admin, Accountant")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Account account)
@@ -60,7 +59,7 @@ namespace Monetrix.Controllers
                 return View();
             }
         }
-
+        [Authorize(Roles = "Admin, Accountant")]
         public async Task<ActionResult> Edit(int id)
         {
             var account = await _accountRepository.GetAccountByIdAsync(id);
@@ -70,7 +69,7 @@ namespace Monetrix.Controllers
 
             return View(account);
         }
-
+        [Authorize(Roles = "Admin, Accountant")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Account account)
@@ -90,7 +89,7 @@ namespace Monetrix.Controllers
                 return View();
             }
         }
-
+        [Authorize(Roles = "Admin, Accountant")]
         public async Task<ActionResult> Delete(int id)
         {
             var account = await _accountRepository.GetAccountByIdAsync(id);
@@ -100,7 +99,7 @@ namespace Monetrix.Controllers
 
             return View(account);
         }
-
+        [Authorize(Roles = "Admin, Accountant")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id, IFormCollection collection)

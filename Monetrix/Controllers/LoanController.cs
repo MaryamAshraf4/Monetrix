@@ -6,7 +6,6 @@ using Monetrix.Models;
 
 namespace Monetrix.Controllers
 {
-    [Authorize(Roles = "Admin, LoanOfficer")]
     public class LoanController : Controller
     {
         private readonly ILoanRepository _loanRepository;
@@ -30,6 +29,7 @@ namespace Monetrix.Controllers
 
             return View(loan);
         }
+        [Authorize(Roles = "Admin, LoanOfficer")]
         public ActionResult Create(int customerId)
         {
             var loan = new Loan { 
@@ -37,7 +37,7 @@ namespace Monetrix.Controllers
             };
             return View(loan);
         }
-
+        [Authorize(Roles = "Admin, LoanOfficer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Loan loan)
@@ -67,7 +67,7 @@ namespace Monetrix.Controllers
                 return View();
             }
         }
-
+        [Authorize(Roles = "Admin, LoanOfficer")]
         public async Task<ActionResult> Edit(int id)
         {
             var loan = await _loanRepository.GetLoanByIdAsync(id);
@@ -77,7 +77,7 @@ namespace Monetrix.Controllers
 
             return View(loan);
         }
-
+        [Authorize(Roles = "Admin, LoanOfficer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Loan loan)
@@ -107,8 +107,7 @@ namespace Monetrix.Controllers
                 return View();
             }
         }
-
-
+        [Authorize(Roles = "Admin, LoanOfficer")]
         public async Task<ActionResult> Delete(int id)
         {
             var loan = await _loanRepository.GetLoanByIdAsync(id);
@@ -118,7 +117,7 @@ namespace Monetrix.Controllers
 
             return View(loan);
         }
-
+        [Authorize(Roles = "Admin, LoanOfficer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id, IFormCollection collection)

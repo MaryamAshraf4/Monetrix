@@ -11,7 +11,6 @@ using Monetrix.ViewModels;
 
 namespace Monetrix.Controllers
 {
-    [Authorize(Roles = "Admin, Teller")]
     public class TransactionController : Controller
     {
         private readonly ITransactionRepository _transactionRepository;
@@ -38,7 +37,7 @@ namespace Monetrix.Controllers
 
             return View(transaction);
         }
-
+        [Authorize(Roles = "Admin, Teller")]
         public ActionResult Create(int accountId)
         {
             var transactionvm = new TransactionViewModel
@@ -47,7 +46,7 @@ namespace Monetrix.Controllers
             };
             return View(transactionvm);
         }
-
+        [Authorize(Roles = "Admin, Teller")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TransactionViewModel transactionVm)
@@ -83,7 +82,7 @@ namespace Monetrix.Controllers
                 return View();
             }
         }
-
+        [Authorize(Roles = "Admin, Teller")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Reverse(int id)

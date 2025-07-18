@@ -151,7 +151,7 @@
         <p class="text-muted">No received transactions found.</p>
     }
 
-    @if (User.IsInRole("Auditor") || User.IsInRole("Teller"))
+    @if (User.IsInRole("Admin") || User.IsInRole("Auditor") || User.IsInRole("Teller"))
     {
         <a asp-controller="Transaction" asp-action="Create" asp-route-accountId="@Model.AccountId" class="btn btn-success">Create New Transaction</a>
     }

@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Monetrix</title>
-    <script type="importmap"></script>
     <link rel="icon" type="image/png" href="~/favicon.png" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -21,48 +20,48 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <li class="nav-item home">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Index">Customer</a>
+                        <li class="nav-item customer">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Customer" ? "active" : "")" asp-controller="Customer" asp-action="Index">Customer</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="AppUser" asp-action="Index">Employee</a>
+                            <li class="nav-item employee">
+                                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AppUser" ? "active" : "")" asp-controller="AppUser" asp-action="Index">Employee</a>
                             </li>
                         }
                         @if (User.IsInRole("Admin") || User.IsInRole("Accountant") || User.IsInRole("Auditor") || User.IsInRole("Teller"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Account</a>
+                            <li class="nav-item account">
+                                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Account" ? "active" : "")" asp-controller="Account" asp-action="Index">Account</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Transaction" asp-action="Index">Transaction</a>
+                            <li class="nav-item transaction">
+                                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Transaction" ? "active" : "")" asp-controller="Transaction" asp-action="Index">Transaction</a>
                             </li>
                         }
                         @if (User.IsInRole("Admin") || User.IsInRole("LoanOfficer") || User.IsInRole("Auditor"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Loan" asp-action="Index">Loan</a>
+                            <li class="nav-item loan">
+                                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Loan" ? "active" : "")" asp-controller="Loan" asp-action="Index">Loan</a>
                             </li>
                         }
                     </ul>
                     <ul class="navbar-nav">
                         @if (!User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
+                            <li class="nav-item login">
+                                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Auth" ? "active" : "")" asp-controller="Auth" asp-action="Login">Login</a>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="ChangePassword">Change Password</a>
+                            <li class="nav-item changePassword">
+                                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Auth" ? "active" : "")" asp-controller="Auth" asp-action="ChangePassword">Change Password</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
+                            <li class="nav-item logout">
+                                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Auth" ? "active" : "")" asp-controller="Auth" asp-action="Logout">Logout</a>
                             </li>
                         }
                     </ul>
@@ -70,17 +69,19 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer">
         <div class="container">
-            &copy; 2025 - Monetrix - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - Monetrix Bank - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
