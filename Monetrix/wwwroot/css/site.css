@@ -212,11 +212,11 @@ tr:hover {
     color: #333;
 }
 
-    .details-section dd {
-        margin-left: 0;
-        margin-bottom: 15px;
-        color: #555;
-    }
+.details-section dd {
+    margin-left: 0;
+    margin-bottom: 15px;
+    color: #555;
+}
 
 .details-actions {
     display: flex;

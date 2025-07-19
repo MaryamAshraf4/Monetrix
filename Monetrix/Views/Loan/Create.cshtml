@@ -5,47 +5,62 @@
     ViewData["Title"] = "Create";
 }
 
-<h4>Loan</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <input type="hidden" asp-for="CustomerId" />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="InterestRate" class="control-label"></label>
-                <input asp-for="InterestRate" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <select asp-for="Status" asp-items="Html.GetEnumSelectList<LoanStatus>()" class="form-control">
-                    <option value="">-- Select Account Type --</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Purpose" class="control-label"></label>
-                <input asp-for="Purpose" class="form-control" />
-            </div>          
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="Details" asp-controller="Customer" asp-route-id="@Model.CustomerId" class="btn btn-secondary">Cancel</a>
-            </div>
-        </form>
+<div class="container mt-5">
+    <div class="card shadow-lg bank-card">
+        <div class="card-header-custom d-flex justify-content-center align-items-center rounded-top">
+            <span>New Loan</span>
+        </div>
+
+        <div class="card-body">
+            <form asp-action="Create">
+                <input type="hidden" asp-for="CustomerId" />
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="Amount" class="form-label"></label>
+                        <input asp-for="Amount" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="InterestRate" class="form-label"></label>
+                        <input asp-for="InterestRate" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="StartDate" class="form-label"></label>
+                        <input asp-for="StartDate" class="form-control" type="date" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="EndDate" class="form-label"></label>
+                        <input asp-for="EndDate" class="form-control" type="date" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Status" class="form-label"></label>
+                        <select asp-for="Status" asp-items="Html.GetEnumSelectList<LoanStatus>()" class="form-control">
+                            <option value="">-- Select Loan Status --</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Purpose" class="form-label"></label>
+                        <input asp-for="Purpose" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary me-2 px-4">Create</button>
+                    <a asp-action="Details" asp-controller="Customer" asp-route-id="@Model.CustomerId" class="btn btn-secondary px-4">Cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
