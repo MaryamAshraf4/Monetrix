@@ -33,9 +33,17 @@
                     <td>@user.Salary.ToString("C")</td>
                     <td>@user.HireDate.ToString("yyyy-MM-dd")</td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@user.Id" class="btn btn-sm btn-info">Details</a>
-                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger">Delete</a>
+                        <a asp-action="Details" asp-route-id="@user.Id" title="Details">
+                            <img src="~/Icons/research.png" alt="Details" style="width:50px; height:50px;">
+                        </a>
+
+                        <a asp-action="Edit" asp-route-id="@user.Id" title="Edit">
+                            <img src="~/Icons/user.png" alt="Edit" style="width:50px; height:50px;">
+                        </a>
+
+                        <a asp-action="Delete" asp-route-id="@user.Id" title="Delete">
+                            <img src="~/Icons/trash.png" alt="Delete" style="width:50px; height:50px;">
+                       </a>
                     </td>
                 </tr>
             }

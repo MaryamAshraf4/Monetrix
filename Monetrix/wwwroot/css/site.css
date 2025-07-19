@@ -275,4 +275,9 @@ tr:hover {
 .bank-card {
     background-color: #fff;
     border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.card-body {
+    padding: 20px;
 }

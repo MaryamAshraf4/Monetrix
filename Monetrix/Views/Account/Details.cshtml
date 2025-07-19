@@ -81,7 +81,9 @@
                         <td>@transaction.Amount.ToString("C")</td>
                         <td>@transaction.TransactionDate.ToShortDateString()</td>
                         <td>
-                            <a asp-controller="Transaction" asp-action="Details" asp-route-id="@transaction.TransactionId" class="btn btn-sm btn-info">Details</a>
+                            <a asp-controller="Transaction" asp-action="Details" asp-route-id="@transaction.TransactionId" title="Details">
+                                <img src="~/Icons/research.png" alt="Details" style="width:50px; height:50px;">
+                            </a>
                         </td>
                     </tr>
                 }
@@ -117,7 +119,9 @@
                         <td>@transaction.Amount.ToString("C")</td>
                         <td>@transaction.TransactionDate.ToShortDateString()</td>
                         <td>
-                            <a asp-controller="Transaction" asp-action="Details" asp-route-id="@transaction.TransactionId" class="btn btn-sm btn-info">Details</a>
+                            <a asp-controller="Transaction" asp-action="Details" asp-route-id="@transaction.TransactionId" title="Details">
+                                <img src="~/Icons/research.png" alt="Details" style="width:50px; height:50px;">
+                            </a>
                         </td>
                     </tr>
                 }

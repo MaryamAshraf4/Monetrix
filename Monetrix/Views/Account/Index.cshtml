@@ -55,7 +55,9 @@
                 <td>Running</td>
             }
             <td>
-                    <a asp-action="Details" asp-controller="Customer" asp-route-id="@item.CustomerId" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Details" asp-route-id="@item.AccountId" title="Details">
+                        <img src="~/Icons/research.png" alt="Details" style="width:50px; height:50px;">
+                    </a>
             </td>
         </tr>
 }
