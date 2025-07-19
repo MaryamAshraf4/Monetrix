@@ -10,7 +10,7 @@
 
 @if (Model.Any())
 {
-    <table class="table">
+    <table>
         <thead>
             <tr>
                 <th><label asp-for="@Model.First().FullName"></label></th>
@@ -33,8 +33,8 @@
                     <td>@user.Salary.ToString("C")</td>
                     <td>@user.HireDate.ToString("yyyy-MM-dd")</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning">Edit</a>
                         <a asp-action="Details" asp-route-id="@user.Id" class="btn btn-sm btn-info">Details</a>
+                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning">Edit</a>
                         <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
@@ -47,6 +47,6 @@ else
     <div class="alert alert-warning">No employees found.</div>
 }
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Add New Employee</a>
+<p class="btn-container">
+    <a asp-action="Create" class="btn-success">Add New Employee</a>
 </p>

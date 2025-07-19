@@ -1,79 +1,57 @@
-﻿@using System.Transactions
-@model Monetrix.Models.Account
+﻿@model Monetrix.Models.Account
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Account Details";
 }
 
-<div>
-    <h4>Account</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Balance)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Balance)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AccountNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AccountNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AccountType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AccountType)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CloseDate)
-        </dt>
-        @if (Model.CloseDate != null)
-        {
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CloseDate)
-            </dd>
-        }
-        else
-        {
-            <dd class ="col-sm-10">Runing</dd>
-        }
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Customer.FullName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer.NationalId)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Customer.NationalId)
-        </dd>
-    </dl>
+<div class="container mt-4">
+    <div class="bank-card shadow rounded-3 overflow-hidden">
+
+        <div class="card-header-custom">
+            <h3 class="mb-0">Account Info</h3>
+        </div>
+
+        <div class="p-4">
+            <dl class="row">
+                <dt class="col-sm-3">Is Active</dt>
+                <dd class="col-sm-9">@Model.IsActive</dd>
+
+                <dt class="col-sm-3">Balance</dt>
+                <dd class="col-sm-9">@Model.Balance</dd>
+
+                <dt class="col-sm-3">Account Number</dt>
+                <dd class="col-sm-9">@Model.AccountNumber</dd>
+
+                <dt class="col-sm-3">Account Type</dt>
+                <dd class="col-sm-9">@Model.AccountType</dd>
+
+                <dt class="col-sm-3">Created Date</dt>
+                <dd class="col-sm-9">@Model.CreatedDate.ToString("yyyy-MM-dd")</dd>
+
+                <dt class="col-sm-3">Close Date</dt>
+                <dd class="col-sm-9">
+                    @(Model.CloseDate != null ? Model.CloseDate?.ToString("yyyy-MM-dd") : "Running")
+                </dd>
+
+                <dt class="col-sm-3">Customer Name</dt>
+                <dd class="col-sm-9">@Model.Customer.FullName</dd>
+
+                <dt class="col-sm-3">National ID</dt>
+                <dd class="col-sm-9">@Model.Customer.NationalId</dd>
+            </dl>
+
+            <div class="mt-4 d-flex justify-content-end gap-2">
+                @if (User.IsInRole("Admin") || User.IsInRole("Accountant"))
+                {
+                    <a asp-action="Edit" asp-route-id="@Model.AccountId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@Model.AccountId" class="btn btn-danger">Delete</a>
+                }
+                <a asp-action="Details" asp-controller="Customer" asp-route-id="@Model.CustomerId" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    @if (User.IsInRole("Admin") || User.IsInRole("Accountant"))
-    {
-        <a asp-action="Edit" asp-route-id="@Model?.AccountId" class="btn btn-warning">Edit</a> 
-        <a asp-action="Delete" asp-route-id="@Model?.AccountId" class="btn btn-danger">Delete</a> 
-    }
-    <a asp-action="Details" asp-controller="Customer" asp-route-id="@Model.CustomerId" class="btn btn-secondary">Back</a>
-</div>
+
 
 <hr />
 
@@ -82,7 +60,7 @@
     <h3>Bank Transactions - Sent</h3>
     @if (Model.TransactionsSent != null && Model.TransactionsSent.Any())
     {
-        <table class="table">
+        <table>
             <thead class="thead-dark">
                 <tr>
                     <th>To Account</th>
@@ -120,7 +98,7 @@
     <h3>Bank Transactions - Received</h3>
     @if (Model.TransactionsReceived != null && Model.TransactionsReceived.Any())
     {
-        <table class="table">
+        <table>
             <thead class="thead-dark">
                 <tr>
                     <th>From Account</th>
@@ -153,6 +131,8 @@
 
     @if (User.IsInRole("Admin") || User.IsInRole("Auditor") || User.IsInRole("Teller"))
     {
-        <a asp-controller="Transaction" asp-action="Create" asp-route-accountId="@Model.AccountId" class="btn btn-success">Create New Transaction</a>
+        <p class="btn-container">
+            <a asp-controller="Transaction" asp-action="Create" asp-route-accountId="@Model.AccountId" class="btn-success">Create New Transaction</a>
+        </p>
     }
 }

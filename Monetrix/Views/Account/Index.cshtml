@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<table class="table">
+<table>
     <thead>
         <tr>
             <th>
@@ -52,7 +52,7 @@
             </td>
             }
             else{
-                <td>Runing</td>
+                <td>Running</td>
             }
             <td>
                     <a asp-action="Details" asp-controller="Customer" asp-route-id="@item.CustomerId" class="btn btn-sm btn-info">Details</a>

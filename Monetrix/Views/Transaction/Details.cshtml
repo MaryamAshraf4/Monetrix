@@ -1,71 +1,58 @@
 ﻿@model Monetrix.Models.Transaction
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Transaction Details";
 }
 
-<div>
-    <h4>Transaction</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TransactionDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TransactionDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TransactionType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TransactionType)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SenderAccount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SenderAccount.AccountNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReceiverAccount)
-        </dt>
-        <dd class = "col-sm-10">
-            @if (string.IsNullOrEmpty(Model.ReceiverAccount?.AccountNumber))
-            {
-                @Html.DisplayFor(model => model.SenderAccount.AccountNumber)
-            }
-            else{
-                @Html.DisplayFor(model => model.ReceiverAccount.AccountNumber)
-            }
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AppUser)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AppUser.FullName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <form asp-action="Reverse" method="post" asp-route-id="@Model.TransactionId">
-        @if (User.IsInRole("Admin") || User.IsInRole("Teller"))
-        {
-            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to reverse this transaction?');">
-                Reverse Transaction
-        </button>
-        }
-        <a asp-action="Details" asp-controller="Account" asp-route-id="@Model?.SenderAccountId" class="btn btn-secondary">Back</a>
-    </form>
+<div class="container mt-4">
+    <div class="bank-card shadow rounded-3 overflow-hidden">
+
+        <div class="section-header rounded-top">
+            <span>Transaction Info</span>
+        </div>
+
+        <div class="card-body p-4">
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Amount)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Amount)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.TransactionDate)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.TransactionDate)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.TransactionType)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.TransactionType)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.SenderAccount)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.SenderAccount.AccountNumber)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ReceiverAccount)</dt>
+                <dd class="col-sm-9">
+                    @if (string.IsNullOrEmpty(Model.ReceiverAccount?.AccountNumber))
+                    {
+                        <span class="text-muted">N/A</span>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.ReceiverAccount.AccountNumber)
+                    }
+                </dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.AppUser)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.AppUser.FullName)</dd>
+            </dl>
+
+            <div class="mt-4 d-flex justify-content-end gap-2">
+                @if (User.IsInRole("Admin") || User.IsInRole("Teller"))
+                {
+                    <form asp-action="Reverse" method="post" asp-route-id="@Model.TransactionId" onsubmit="return confirm('Are you sure you want to reverse this transaction?');">
+                        <button type="submit" class="btn btn-danger">Reverse</button>
+                    </form>
+                }
+                <a asp-action="Details" asp-controller="Account" asp-route-id="@Model?.SenderAccountId" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
+    </div>
 </div>
