@@ -32,6 +32,7 @@
 
 ### 📂 Project Structure
 
+```
 Monetrix/
 ├── Controllers/       # Handle business logic per entity
 ├── Models/            # Entity classes (Customer, Account, etc.)
@@ -42,7 +43,7 @@ Monetrix/
 ├── wwwroot/           # Static files (CSS, JS, images)
 ├── appsettings.json   # Configuration file
 └── Program.cs         # App startup and services
-
+```
 ---
 
 ### 👥 Roles & Permissions
