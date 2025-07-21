@@ -19,7 +19,7 @@
 
 ### 🛠️ Technologies Used
 
-* ASP.NET Core MVC (.NET 8)
+* ASP.NET Core MVC (.NET 9)
 * Entity Framework Core
 * SQL Server
 * Razor Views
