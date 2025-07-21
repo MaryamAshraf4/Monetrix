@@ -56,7 +56,7 @@
                 @Html.DisplayFor(modelItem => item.AppUser.FullName)
             </td>
             <td>
-                    <a asp-action="Details"  asp-route-id="@item.LoanId" title="Details">
+                    <a asp-action="Details" asp-route-id="@item.LoanId" asp-route-returnUrl="@Url.Action("Index", "Loan")" title="Details">
                         <img src="~/Icons/research.png" alt="Details" style="width:50px; height:50px;">
                     </a>
             </td>

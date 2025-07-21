@@ -132,14 +132,14 @@ html {
     }
 }
 
-.nav-item.home .nav-link.active ,
-.nav-item.customer .nav-link.active ,
-.nav-item.loan .nav-link.active ,
-.nav-item.employee .nav-link.active ,
-.nav-item.account .nav-link.active ,
-.nav-item.transaction .nav-link.active ,
-.nav-item.login .nav-link.active ,
-.nav-item.changePassword .nav-link.active {
+.nav-item.home .nav-link.active,
+.nav-item.customer .nav-link.active,
+.nav-item.loan .nav-link.active,
+.nav-item.employee .nav-link.active,
+.nav-item.account .nav-link.active,
+.nav-item.transaction .nav-link.active,
+.nav-item.login .nav-link.active,
+.nav-item.Profile .nav-link.active {
     color: #FFD700 !important;
 }
 
@@ -238,6 +238,9 @@ tr:hover {
 .btn-warning {
     background-color: #ffc107;
 }
+.btn-warning:hover {
+    color: white;
+}
 
 .btn-secondary {
     background-color: #6c757d;
@@ -281,3 +284,19 @@ tr:hover {
 .card-body {
     padding: 20px;
 }
+
+
+.btn-bank-create {
+    background-color: #002366;
+    color: white;
+    border: 2px solid #FFD700;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .btn-bank-create:hover {
+        background-color: #001a4d;
+        color: white;
+        border: 2px solid #FFD700;
+    }
+

@@ -6,7 +6,7 @@
 <div class="container card-body mt-4">
     <div class="bank-card shadow rounded-3 overflow-hidden">
 
-        <div class="section-header">
+        <div class="section-header justify-content-center align-items-center">
             <span>Customer Details</span>
         </div>
 
@@ -77,7 +77,7 @@
                         <td>@account.AccountType</td>
                         <td>@account.Balance.ToString("C")</td>
                         <td>
-                            <a asp-controller="Account" asp-action="Details" asp-route-id="@account.AccountId" title="Details">
+                            <a asp-controller="Account" asp-action="Details" asp-route-id="@account.AccountId" asp-route-returnUrl="@Url.Action("Details", "Customer", new { id = Model.CustomerId })" title="Details">
                                 <img src="~/Icons/research.png" alt="Details" style="width:50px; height:50px;">
                             </a>
                         </td>
@@ -93,7 +93,7 @@
     @if (!User.IsInRole("Auditor") || !User.IsInRole("Teller"))
     {
         <p class="btn-container">
-            <a asp-controller="Account" asp-action="Create" asp-route-customerId="@Model.CustomerId" class="btn-success mt-2">Add New Account</a>
+            <a asp-controller="Account" asp-action="Create" asp-route-customerId="@Model.CustomerId" class="btn btn-bank-create mt-3">Add New Account</a>
         </p>
     }
 }
@@ -125,7 +125,7 @@
                         <td>@loan.StartDate.ToShortDateString()</td>
                         <td>@loan.EndDate.ToShortDateString()</td>
                         <td>
-                            <a asp-controller="Loan" asp-action="Details" asp-route-id="@loan.LoanId" title="Details">
+                            <a asp-controller="Loan" asp-action="Details" asp-route-id="@loan.LoanId" asp-route-returnUrl="@Url.Action("Details", "Customer", new { id = Model.CustomerId })" title="Details">
                                 <img src="~/Icons/research.png" alt="Details" style="width:50px; height:50px;">
                             </a>
                         </td>
@@ -141,7 +141,7 @@
     @if (!User.IsInRole("Auditor"))
     {
         <p class="btn-container">
-            <a asp-controller="Loan" asp-action="Create" asp-route-customerId="@Model.CustomerId" class="btn-success mt-2">Add New Loan</a>
+            <a asp-controller="Loan" asp-action="Create" asp-route-customerId="@Model.CustomerId" class="btn btn-bank-create mt-3">Add New Loan</a>
         </p>
     }
 }

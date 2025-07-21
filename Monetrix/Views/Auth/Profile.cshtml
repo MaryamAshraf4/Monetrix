@@ -1,0 +1,43 @@
+﻿@model Monetrix.Models.AppUser
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container mt-4">
+    <div class="bank-card shadow rounded-3 overflow-hidden">
+
+        <div class="card-header-custom d-flex justify-content-center align-items-center rounded-top">
+            <h3 class="mb-0">Profile Info</h3>
+        </div>
+
+        <div class="p-4">
+            <dl class="row">
+                <dt class="col-sm-3">Full Name</dt>
+                <dd class="col-sm-9">@Model.FullName</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@Model.Email</dd>
+
+                <dt class="col-sm-3">Username</dt>
+                <dd class="col-sm-9">@Model.UserName</dd>
+
+                <dt class="col-sm-3">Position</dt>
+                <dd class="col-sm-9">@Model.Position</dd>
+
+                <dt class="col-sm-3">National ID</dt>
+                <dd class="col-sm-9">@Model.NationalId</dd>
+
+                <dt class="col-sm-3">Hire Date</dt>
+                <dd class="col-sm-9">@Model.HireDate.ToString("yyyy-MM-dd")</dd>
+
+                <dt class="col-sm-3">Salary</dt>
+                <dd class="col-sm-9">@Model.Salary</dd>
+            </dl>
+
+            <div class="mt-4 d-flex justify-content-end gap-2">
+                <a asp-controller="Auth" asp-action="ChangePassword" class="btn btn-warning px-4">Change Password</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Monetrix.Models;
 using Monetrix.ViewModels;
 using System.Threading.Tasks;
@@ -68,6 +70,20 @@ namespace Monetrix.Controllers
                 return View();
             }
         }
+
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var userId = _userManager.GetUserId(User);
+            var user = await _userManager.Users
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+                return NotFound();
+
+            return View(user);
+        }
+
 
         public async Task<ActionResult> ChangePassword()
         {

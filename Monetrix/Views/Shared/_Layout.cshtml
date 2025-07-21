@@ -66,8 +66,8 @@
                         }
                         else
                         {
-                            <li class="nav-item changePassword">
-                                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Auth" ? "active" : "")" asp-controller="Auth" asp-action="ChangePassword">Change Password</a>
+                                <li class="nav-item Profile">
+                                    <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Auth" ? "active" : "")" asp-controller="Auth" asp-action="Profile">@User.Identity.Name</a>
                             </li>
                             <li class="nav-item logout">
                                 <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Auth" ? "active" : "")" asp-controller="Auth" asp-action="Logout">Logout</a>

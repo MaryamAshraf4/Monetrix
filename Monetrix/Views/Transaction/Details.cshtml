@@ -7,7 +7,7 @@
 <div class="container mt-4">
     <div class="bank-card shadow rounded-3 overflow-hidden">
 
-        <div class="section-header rounded-top">
+        <div class="section-header justify-content-center align-items-center rounded-top">
             <span>Transaction Info</span>
         </div>
 
@@ -51,7 +51,14 @@
                         <button type="submit" class="btn btn-danger">Reverse</button>
                     </form>
                 }
-                <a asp-action="Details" asp-controller="Account" asp-route-id="@Model?.SenderAccountId" class="btn btn-secondary">Back</a>
+                @{
+                    var returnUrl = Context.Request.Query["returnUrl"].ToString();
+                    if (string.IsNullOrEmpty(returnUrl))
+                    {
+                        returnUrl = Url.Action("Index", "Transaction");
+                    }
+                }
+                <a href="@returnUrl" class="btn btn-secondary">Back</a>
             </div>
         </div>
     </div>

@@ -7,7 +7,7 @@
 <div class="container mt-4">
     <div class="bank-card shadow rounded-3 overflow-hidden">
 
-        <div class="section-header rounded-top">
+        <div class="section-header justify-content-center align-items-center rounded-top">
             <span>Loan Info</span>
         </div>
 
@@ -47,7 +47,14 @@
                     <a asp-action="Edit" asp-route-id="@Model?.LoanId" class="btn btn-warning">Edit</a>
                     <a asp-action="Delete" asp-route-id="@Model?.LoanId" class="btn btn-danger">Delete</a>
                 }
-                <a asp-action="Details" asp-controller="Customer" asp-route-id="@Model?.CustomerId" class="btn btn-secondary">Back</a>
+                @{
+                    var returnUrl = Context.Request.Query["returnUrl"].ToString();
+                    if (string.IsNullOrEmpty(returnUrl))
+                    {
+                        returnUrl = Url.Action("Index", "Loan");
+                    }
+                }
+                <a href="@returnUrl" class="btn btn-secondary">Back</a>
             </div>
         </div>
     </div>
