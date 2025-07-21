@@ -57,7 +57,7 @@
 
 @if (User.IsInRole("Admin") || User.IsInRole("Accountant") || User.IsInRole("Auditor") || User.IsInRole("Teller"))
 {
-    <h3>Bank Accounts</h3>
+    <h3 style="font-weight: bold;">Bank Accounts</h3>
     @if (Model.Accounts != null && Model.Accounts.Any())
     {
         <table>
@@ -101,7 +101,7 @@
 
 @if (User.IsInRole("Admin") || User.IsInRole("LoanOfficer") || User.IsInRole("Auditor"))
 {
-    <h3>Loans</h3>
+    <h3 style="font-weight: bold;">Loans</h3>
     @if (Model.Loans != null && Model.Loans.Any())
     {
         <table>

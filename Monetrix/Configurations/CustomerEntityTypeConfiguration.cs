@@ -10,6 +10,8 @@ namespace Monetrix.Configurations
         {
             builder.HasIndex(c => c.NationalId).IsUnique();
 
+            builder.HasIndex(c => c.Email).IsUnique();
+
             builder.Property(c => c.NationalId).HasMaxLength(14);
 
             builder.Property(c => c.Gender).HasConversion<string>();

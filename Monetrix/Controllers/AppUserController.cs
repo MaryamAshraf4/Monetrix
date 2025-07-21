@@ -58,7 +58,7 @@ namespace Monetrix.Controllers
                         IsFirstLogin = true
                     };
 
-                    var result = await _userManager.CreateAsync(appUser, appUserVm.Password);
+                    var result = await _userManager.CreateAsync(appUser, appUserVm.Password);              
 
                     if (result.Succeeded)
                     {

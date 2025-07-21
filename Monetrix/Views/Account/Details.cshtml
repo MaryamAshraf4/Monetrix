@@ -64,7 +64,7 @@
 
 @if (User.IsInRole("Admin") || User.IsInRole("Teller") || User.IsInRole("Auditor") || User.IsInRole("Accountant"))
 {
-    <h3>Bank Transactions - Sent</h3>
+    <h3 style="font-weight: bold;">Bank Transactions - Sent</h3>
     @if (Model.TransactionsSent != null && Model.TransactionsSent.Any())
     {
         <table>
@@ -104,7 +104,7 @@
 
     <hr />
 
-    <h3>Bank Transactions - Received</h3>
+    <h3 style="font-weight: bold;">Bank Transactions - Received</h3>
     @if (Model.TransactionsReceived != null && Model.TransactionsReceived.Any())
     {
         <table>
