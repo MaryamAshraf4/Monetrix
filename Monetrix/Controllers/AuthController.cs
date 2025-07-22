@@ -34,8 +34,16 @@ namespace Monetrix.Controllers
                 if (ModelState.IsValid)
                 {
                     AppUser appUser = await _userManager.FindByNameAsync(userVm.UserName);
+                   
+
                     if (appUser != null)
                     {
+                        if (!appUser.IsActive)
+                        {
+                            ModelState.AddModelError("", "This Account is not active.");
+                            return View(appUser);
+                        }
+
                         bool found = await _userManager.CheckPasswordAsync(appUser, userVm.Password);
                         if (found)
                         {

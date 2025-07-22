@@ -19,6 +19,7 @@ namespace Monetrix.Models
         public decimal Salary { get; set; }
         public bool IsFirstLogin { get; set; } = true;
         public DateTime HireDate { get; set; } = DateTime.UtcNow;
+        public bool IsActive { get; set; } = true;
         public ICollection<Loan> Loans { get; set; } = new List<Loan>();
         public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
     }

@@ -6,6 +6,9 @@ namespace Monetrix.ViewModels
 {
     public class RegisterViewModel
     {
+        [Display(Name ="Is Active")]
+        public bool IsActive { get; set; } = true;
+
         [Required(ErrorMessage = "Please enter your 14-digit National ID.")]
         [RegularExpression(@"^\d{14}$", ErrorMessage = "National ID must be 14 digits.")]
         [Display(Name = "National ID")]

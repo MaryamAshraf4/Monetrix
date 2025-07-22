@@ -15,7 +15,7 @@ namespace Monetrix.Configurations
             builder.HasOne(t => t.SenderAccount)
                 .WithMany(a => a.TransactionsSent)
                 .HasForeignKey(t => t.SenderAccountId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(t => t.ReceiverAccount)
                 .WithMany(a => a.TransactionsReceived)

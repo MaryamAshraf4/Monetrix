@@ -2,14 +2,15 @@
 @{
     ViewData["Title"] = "Customers";
 }
+@if (Model != null && Model.Any())
+{
 
 <form method="get" asp-action="Index" class="mb-3 d-flex gap-2">
     <input type="text" name="FullName" value="@ViewData["FullName"]" class="form-control" placeholder="Search by name" />
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
 
-@if (Model.Any())
-{
+
     <table>
         <thead>
             <tr>
@@ -58,7 +59,10 @@
 }
 else
 {
-    <div class="alert alert-warning">No customers found.</div>
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh;">
+    <p class="gold-outline-text" style="font-size: 2rem; font-weight: bold; color: white;">No customers found</p>
+</div>
+
 }
 
 <p class="btn-container">

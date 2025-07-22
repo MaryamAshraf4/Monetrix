@@ -50,7 +50,7 @@ namespace Monetrix.Repository
             var appUser = await GetAppUserByIdAsync(id);
             if (appUser != null)
             {
-                _context.AppUsers.Remove(appUser);
+                appUser.IsActive = false;
                 await _context.SaveChangesAsync();
             }
         }

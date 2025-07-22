@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Index";
 }
+@if (Model != null && Model.Any())
+{
 
 <table>
     <thead>
@@ -63,3 +65,11 @@
 }
     </tbody>
 </table>
+}
+else{
+
+<div class="d-flex justify-content-center align-items-center" style="height: 60vh;">
+        <p class="gold-outline-text" style="font-size: 2rem; font-weight: bold; color: white;">No accounts found</p>
+</div>
+
+}

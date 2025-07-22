@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Monetrix.Models;
+using System.Reflection.Emit;
 
 namespace Monetrix.Configurations
 {
@@ -19,6 +20,8 @@ namespace Monetrix.Configurations
 
             builder.Property(u => u.Position).HasMaxLength(15);
             builder.Property(u => u.Position).HasConversion<string>();
+
+            builder.HasQueryFilter(u => u.IsActive);
 
             builder.Property(u => u.FullName).HasMaxLength(60).UseCollation("Arabic_CI_AS");
 
