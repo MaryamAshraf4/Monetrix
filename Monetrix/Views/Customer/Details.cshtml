@@ -57,7 +57,7 @@
 
 @if (User.IsInRole("Admin") || User.IsInRole("Accountant") || User.IsInRole("Auditor") || User.IsInRole("Teller"))
 {
-    <h3 style="font-weight: bold;">Bank Accounts</h3>
+    <h3 style="font-weight: bold; color: white;">Bank Accounts</h3>
     @if (Model.Accounts != null && Model.Accounts.Any())
     {
         <table>
@@ -88,7 +88,7 @@
     }
     else
     {
-        <p class="text-muted">No accounts found.</p>
+        <p style="color: white;">No accounts found.</p>
     }
     @if (!User.IsInRole("Auditor") || !User.IsInRole("Teller"))
     {
@@ -101,7 +101,7 @@
 
 @if (User.IsInRole("Admin") || User.IsInRole("LoanOfficer") || User.IsInRole("Auditor"))
 {
-    <h3 style="font-weight: bold;">Loans</h3>
+    <h3 style="font-weight: bold; color: white;">Loans</h3>
     @if (Model.Loans != null && Model.Loans.Any())
     {
         <table>
@@ -136,7 +136,7 @@
     }
     else
     {
-        <p class="text-muted">No loans found.</p>
+        <p style="color: white;">No loans found.</p>
     }
     @if (!User.IsInRole("Auditor"))
     {

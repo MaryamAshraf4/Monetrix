@@ -2,7 +2,50 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero-section text-white d-flex align-items-center justify-content-center">
+    <div class="text-center">
+        <h1 class="display-3 fw-bold gold-outline-text ">Welcome to Monetrix Bank</h1>
+        <p class="lead gold-outline-text2">Smart. Secure. Seamless banking.</p>
+        <a class="btn btn-bank-create mt-4" asp-controller="Auth" asp-action="Login">Get Started</a>
+    </div>
 </div>
+
+<section class="container my-5">
+    <h2 class="text-center mb-5" style="color: var(--bank-secondary);">Our Core Services</h2>
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="service-card h-100 d-flex flex-column">
+                    <div class="service-card-header">Transactions</div>
+                <div class="service-card-body flex-grow-1 d-flex flex-column justify-content-between">
+                    <p class="card-text">
+                        Effortlessly monitor, create, and process all types of banking transactions with security and transparency. Empower employees to handle transfers, deposits, and withdrawals accurately, ensuring a seamless experience for every customer.
+                    </p>
+                    </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="service-card h-100 d-flex flex-column">
+                    <div class="service-card-header">Accounts</div>
+                <div class="service-card-body flex-grow-1 d-flex flex-column justify-content-between">
+                    <p class="card-text">
+                        Easily manage customer accounts with advanced tools for creating new accounts, tracking balances, updating information, and categorizing account types. Ensure accurate data and real-time updates to support efficient banking operations.
+                    </p>
+                    </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="service-card h-100 d-flex flex-column">
+                    <div class="service-card-header">Loans</div>
+                    <div class="service-card-body flex-grow-1 d-flex flex-column justify-content-between">
+                    <p class="card-text">
+                        Streamline the entire loan management process—from customer requests to approval, disbursement, and tracking repayments. Maintain transparency and compliance while helping staff handle various loan types with full control and visibility.
+                    </p>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+</section>

@@ -26,9 +26,13 @@
                         <li class="nav-item home">
                             <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item customer">
-                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Customer" ? "active" : "")" asp-controller="Customer" asp-action="Index">Customer</a>
-                        </li>
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item customer">
+                                    <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Customer" ? "active" : "")" asp-controller="Customer" asp-action="Index">Customer</a>
+                                </li>
+                            }
 
                         @if (User.IsInRole("Admin"))
                         {

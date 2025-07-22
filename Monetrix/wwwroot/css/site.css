@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --bank-primary: #002366;
     --bank-secondary: #FFD700; 
     --bank-light: #f8f9fa;
@@ -9,10 +9,12 @@
 
 body {
     font-family: 'Tajawal', 'Segoe UI', sans-serif;
-    background: url('/images/bank-bg.jpg') no-repeat center center fixed;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0,0,0,0.5)), url('/Images/BackGround.jpg') no-repeat center center fixed;
     background-size: cover;
+    background-attachment: fixed;
     margin-bottom: 100px;
     direction: ltr;
+    min-height: 100vh;
 }
 
 .navbar {
@@ -72,6 +74,17 @@ body {
     text-align: center;
     margin-top: auto;
 }
+
+footer a {
+    color: gold;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+    footer a:hover {
+        color: #ffd700;
+        text-decoration: underline;
+    }
 
 .nav-link.active {
     font-weight: bold;
@@ -297,3 +310,58 @@ tr:hover {
         color: white;
         border: 2px solid #FFD700;
     }
+
+.hero-section {
+    height: 100vh;
+    border-bottom: 4px solid var(--bank-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+    .hero-section h1,
+    .hero-section p {
+        color: white;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+.service-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+}
+    .service-card:hover {
+        transform: translateY(-4px);
+    }
+.service-card-header {
+    background-color: var(--bank-primary);
+    color: var(--bank-secondary);
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    border-bottom: 3px solid gold;
+}
+
+.service-card-body {
+    padding: 1rem;
+    color: var(--bank-primary);
+}
+.gold-outline-text {
+    color: white;
+    -webkit-text-stroke: 1px gold;
+    text-shadow: 0 0 5px gold; 
+    font-weight: bold;
+}
+.gold-outline-text2 {
+    color: white;
+    -webkit-text-stroke: 0.1px gold;
+    text-shadow: 0 0 5px gold; 
+}
+
+
