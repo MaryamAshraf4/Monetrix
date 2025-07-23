@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Monetrix.Models.Customer>
+
+    @if (Model != null && Model.Any())
+{
+        <table>
+        <thead>
+            <tr>
+                <th><label asp-for="@Model.First().FullName"></label></th>
+                <th><label asp-for="@Model.First().NationalId"></label></th>
+                <th><label asp-for="@Model.First().Age"></label></th>
+                <th><label asp-for="@Model.First().Email"></label></th>
+                <th><label asp-for="@Model.First().Address"></label></th>
+                <th><label asp-for="@Model.First().Phone"></label></th>
+                <th><label asp-for="@Model.First().Gender"></label></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FullName</td>
+                    <td>@item.NationalId</td>
+                    <td>@item.Age</td>
+                    <td>@item.Email</td>
+                    <td>@item.Address</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Gender</td>
+                    <td>
+
+                        <a asp-action="Details" asp-route-id="@item.CustomerId" title="Details">
+                            <img src="~/Icons/research.png" alt="Details" style="width:40px; height:40px;">
+                        </a>
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("CustomerService"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.CustomerId" title="Edit">
+                                <img src="~/Icons/user.png" alt="Edit" style="width:40px; height:40px;">
+                            </a>
+
+                            <a asp-action="Delete" asp-route-id = "@item.CustomerId"  tite="Delete">
+                                <img src="~/Icons/trash.png" alt="Delete" style="width:40px; height:40px;">
+                             </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh;">
+    <p class="gold-outline-text" style="font-size: 2rem; font-weight: bold; color: white;">No customers found</p>
+</div>
+
+}
+
+<p class="btn-container">
+    <a asp-action="Create" class="btn btn-bank-create mt-3">Add New Customer</a>
+</p>

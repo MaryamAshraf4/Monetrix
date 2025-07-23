@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Monetrix.Models.AppUser>
+
+@if (Model != null && Model.Any())
+{
+
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NationalId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Position)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Salary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HireDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.IsActive)
+                    </td>
+                    <td>@user.FullName</td>
+                    <td>@user.NationalId</td>
+                    <td>@user.Email</td>
+                    <td>@user.Position</td>
+                    <td>@user.Salary.ToString("C")</td>
+                    <td>@user.HireDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@user.Id" title="Details">
+                            <img src="~/Icons/research.png" alt="Details" style="width:40px; height:40px;">
+                        </a>
+
+                        <a asp-action="Edit" asp-route-id="@user.Id" title="Edit">
+                            <img src="~/Icons/user.png" alt="Edit" style="width:40px; height:40px;">
+                        </a>
+
+                        <a asp-action="Delete" asp-route-id="@user.Id" title="Delete">
+                            <img src="~/Icons/trash.png" alt="Delete" style="width:40px; height:40px;">
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh;">
+        <p class="gold-outline-text" style="font-size: 2rem; font-weight: bold; color: white;">No employees found</p>
+    </div>
+
+}
+
+
+
+<div class="d-flex justify-content-between">
+    <div class="text-start">
+        <a asp-action="Archive" class="btn btn-bank-create mt-3">Archived Employees</a>
+    </div>
+    <div class="text-end">
+        <a asp-action="Create" class="btn btn-bank-create mt-3">Add New Employee</a>
+    </div>
+</div>

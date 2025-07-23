@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Monetrix.Enums;
 using Monetrix.Models;
 
@@ -22,9 +23,14 @@ namespace Monetrix.Classes
         public static async Task SeedAdminAsync(IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
-            var password = "Admin@123";
+            var users = userManager.Users;
 
-            if (await userManager.FindByNameAsync("admin") == null)
+            var adminExists = await users.AnyAsync(u => u.Position == JobPosition.Admin && u.IsActive);
+            if (adminExists)
+                return;
+
+            var existingAdmin = await userManager.FindByNameAsync("admin");
+            if (existingAdmin == null)
             {
                 var admin = new AppUser
                 {
@@ -32,9 +38,10 @@ namespace Monetrix.Classes
                     Email = "admin@bank.com",
                     FullName = "Admin User",
                     Position = JobPosition.Admin,
+                    IsActive = true
                 };
 
-                var result = await userManager.CreateAsync(admin, password);
+                var result = await userManager.CreateAsync(admin, "Admin@123");
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, JobPosition.Admin.ToString());

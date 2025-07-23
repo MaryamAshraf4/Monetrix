@@ -22,17 +22,29 @@ namespace Monetrix.Controllers
         }
         public async Task<ActionResult> Index(string? FullName)
         {
-            ViewData["FullName"] = FullName;
+            ViewBag.FullName = FullName;
             var appUsers = await _AppUserRepository.GetAllAppUsersAsync(FullName);
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("~/Views/PartialViews/_AppUserTable.cshtml", appUsers);
+            }
+
             return View(appUsers);
         }
 
         public async Task<ActionResult> Archive(string? FullName)
         {
-            ViewData["FullName"] = FullName;
-            ViewData["Password"] = "Temp123@Pass";
-            var appUser = await _AppUserRepository.GetAllArchivedUserAsync(FullName);
-            return View(appUser);
+            ViewBag.FullName = FullName;
+            ViewBag.Password = "Temp123@Pass";
+            var appUsers = await _AppUserRepository.GetAllArchivedUserAsync(FullName);
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("~/Views/PartialViews/_ArchiveTable.cshtml", appUsers);
+            }
+
+            return View(appUsers);
         }
 
         public async Task<ActionResult> Details(string id)

@@ -20,8 +20,14 @@ namespace Monetrix.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(string? FullName)
         {
-            ViewData["FullName"] = FullName;
+            ViewBag.FullName = FullName;
             var customers = await _customerRepository.GetAllCustomersAsync(FullName);
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("~/Views/PartialViews/_CustomerTable.cshtml", customers);
+            }
+
             return View(customers);
         }
         [AllowAnonymous]

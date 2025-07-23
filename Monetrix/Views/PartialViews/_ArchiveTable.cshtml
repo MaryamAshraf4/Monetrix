@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Monetrix.Models.AppUser>
+
+@if (Model != null && Model.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NationalId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Position)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Salary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HireDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>Password</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.FullName</td>
+                    <td>@user.NationalId</td>
+                    <td>@user.Email</td>
+                    <td>@user.Position</td>
+                    <td>@user.Salary.ToString("C")</td>
+                    <td>@user.HireDate.ToString("yyyy-MM-dd")</td>
+                    <td>@user.UserName</td>
+                    <td>@ViewBag.Password</td>
+                    <td>
+                        <a asp-action="Reactivate" asp-route-id="@user.Id" title="Reactivate">
+                            <img src="~/Icons/return.png" alt="Delete" style="width:40px; height:40px;">
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh;">
+        <p class="gold-outline-text" style="font-size: 2rem; font-weight: bold; color: white;">No archived employees found</p>
+    </div>
+
+}
+<p class="btn-container">
+    <a asp-action="Index" class="btn btn-warning mt-3">Back</a>
+</p>
