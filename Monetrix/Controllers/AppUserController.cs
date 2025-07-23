@@ -27,6 +27,14 @@ namespace Monetrix.Controllers
             return View(appUsers);
         }
 
+        public async Task<ActionResult> Archive(string? FullName)
+        {
+            ViewData["FullName"] = FullName;
+            ViewData["Password"] = "Temp123@Pass";
+            var appUser = await _AppUserRepository.GetAllArchivedUserAsync(FullName);
+            return View(appUser);
+        }
+
         public async Task<ActionResult> Details(string id)
         {
             var appUser = await _AppUserRepository.GetAppUserByIdAsync(id);
@@ -136,6 +144,25 @@ namespace Monetrix.Controllers
             {
                 return View();
             }
+        }
+
+        public async Task<ActionResult> Reactivate(string id) {
+
+            var appUser = await _AppUserRepository.GetAppUserByIdAsync(id);
+
+            if (appUser != null)
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(appUser);
+                var result = await _userManager.ResetPasswordAsync(appUser, token, "Temp123@Pass");
+
+                if (result.Succeeded)
+                {
+                    appUser.IsActive = true;
+                    appUser.IsFirstLogin = true;
+                    await _AppUserRepository.UpdateAppUserAsync(appUser);
+                }
+            }           
+            return RedirectToAction(nameof(Index));
         }
     }
 }
