@@ -13,7 +13,7 @@ namespace Monetrix.Repository
         }
         public async Task<Customer?> GetCustomerByIdAsync(int id)
         {
-            return await _context.Customers.FindAsync(id);
+            return await _context.Customers.IgnoreQueryFilters().FirstOrDefaultAsync(c => c.CustomerId == id);
         }
         public async Task<Customer?> GetCustomerByIdWithAccountsAndLoansAsync(int id)
         {
@@ -33,6 +33,17 @@ namespace Monetrix.Repository
 
             return await query.ToListAsync();
         }
+        public async Task<IEnumerable<Customer>> GetAllArchivedCustomersAsync(string? searchString)
+        {
+            var query = _context.Customers.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchString))
+            {
+                query = query.Where(c => c.FullName.Contains(searchString));
+            }
+
+            return await query.IgnoreQueryFilters().Where(c => c.IsDeleted).ToListAsync();
+        }
         public async Task AddCustomerAsync(Customer customer)
         {
             await _context.Customers.AddAsync(customer);
@@ -48,7 +59,7 @@ namespace Monetrix.Repository
             var customer = await GetCustomerByIdAsync(id);
             if (customer != null)
             {
-                _context.Customers.Remove(customer);
+                customer.IsDeleted = true;
                 await _context.SaveChangesAsync();
             }
         }

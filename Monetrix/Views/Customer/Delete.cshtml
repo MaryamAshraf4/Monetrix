@@ -38,9 +38,35 @@
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Gender)</dd>
         </dl>
 
+        @if (ViewBag.HasActiveAccounts == true || ViewBag.HasIncompleteLoans == true)
+        {
+            <div class="alert alert-warning">
+                <strong>Warning:</strong> You cannot delete this customer because:
+                <ul>
+                    @if (ViewBag.HasActiveAccounts == true)
+                    {
+                        <li>The customer has active bank accounts.</li>
+                    }
+                    @if (ViewBag.HasIncompleteLoans == true)
+                    {
+                        <li>The customer has incomplete loans.</li>
+                    }
+                </ul>
+                Please close all accounts and finish all loans before deleting.
+            </div>
+        }
+
+
         <form asp-action="Delete" method="post" class="mt-4 d-flex justify-content-end gap-2">
             <input type="hidden" asp-for="CustomerId" />
-            <button type="submit" class="btn btn-danger">Delete</button>
+            @if (ViewBag.HasActiveAccounts != true && ViewBag.HasIncompleteLoans != true)
+            {
+                <button type="submit" class="btn btn-danger">Delete</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-danger" disabled>Delete</button>
+            }
             <a asp-action="Index" class="btn btn-secondary">Cancel</a>
         </form>
     </div>

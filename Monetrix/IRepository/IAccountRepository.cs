@@ -10,6 +10,6 @@ namespace Monetrix.IRepository
         Task<Account?> GetAccouuntByIdWithTransactionAsync(int id);
         Task CreateAccountAsync(Account account);
         Task UpdateAccountAsync(Account account);
-        Task DeleteAccountAsync(int id);
+        Task CloseAccountAsync(int id);
     }
 }

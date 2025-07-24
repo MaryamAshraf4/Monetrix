@@ -36,12 +36,13 @@ namespace Monetrix.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAccountAsync(int id)
+        public async Task CloseAccountAsync(int id)
         {
             var account = await GetAccountByIdAsync(id);
             if (account != null)
             {
-                _context.Accounts.Remove(account);
+                account.IsActive = false;
+                account.CloseDate = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
             }
         }

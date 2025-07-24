@@ -8,6 +8,8 @@ namespace Monetrix.Configurations
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
+            builder.HasQueryFilter(c => !c.IsDeleted);
+
             builder.HasIndex(c => c.NationalId).IsUnique();
 
             builder.HasIndex(c => c.Email).IsUnique();

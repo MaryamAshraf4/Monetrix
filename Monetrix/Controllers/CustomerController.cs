@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Monetrix.Enums;
 using Monetrix.InterFaces;
 using Monetrix.IRepository;
 using Monetrix.Models;
+using Monetrix.Repository;
 
 namespace Monetrix.Controllers
 {
@@ -26,6 +29,19 @@ namespace Monetrix.Controllers
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
                 return PartialView("~/Views/PartialViews/_CustomerTable.cshtml", customers);
+            }
+
+            return View(customers);
+        }
+        [AllowAnonymous]
+        public async Task<ActionResult> Archive(string? FullName)
+        {
+            ViewBag.FullName = FullName;
+            var customers = await _customerRepository.GetAllArchivedCustomersAsync(FullName);
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("~/Views/PartialViews/_ArchiveCustomerTable.cshtml", customers);
             }
 
             return View(customers);
@@ -105,10 +121,13 @@ namespace Monetrix.Controllers
 
         public async Task<ActionResult> Delete(int id)
         {
-            var customer = await _customerRepository.GetCustomerByIdAsync(id);
+            var customer = await _customerRepository.GetCustomerByIdWithAccountsAndLoansAsync(id);
 
-            if (customer == null)
+            if (customer == null || customer.IsDeleted)
                 return NotFound();
+
+            ViewBag.HasActiveAccounts = customer.Accounts.Any(a => a.IsActive);
+            ViewBag.HasIncompleteLoans = customer.Loans.Any(l =>l.Status == LoanStatus.Pending || l.Status == LoanStatus.Approved);
 
             return View(customer);
         }
@@ -126,6 +145,19 @@ namespace Monetrix.Controllers
             {
                 return View();
             }
+        }
+
+        public async Task<ActionResult> Reactivate(int id)
+        {
+
+            var customer = await _customerRepository.GetCustomerByIdAsync(id);
+
+            if (customer != null)
+            {
+                customer.IsDeleted = false;
+                await _customerRepository.UpdateCustomerAsync(customer);
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

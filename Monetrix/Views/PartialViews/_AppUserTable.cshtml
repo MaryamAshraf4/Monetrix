@@ -52,9 +52,12 @@
                             <img src="~/Icons/user.png" alt="Edit" style="width:40px; height:40px;">
                         </a>
 
-                        <a asp-action="Delete" asp-route-id="@user.Id" title="Delete">
-                            <img src="~/Icons/trash.png" alt="Delete" style="width:40px; height:40px;">
-                        </a>
+                        <form asp-action="Delete" asp-controller="AppUser" method="post" onsubmit="return confirm('Are you sure you want to archive this employee?');" style="display:inline">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <button type="submit" title="Delete" style="all: unset; cursor: pointer;">
+                                <img src="~/Icons/trash.png" alt="Delete" style="width:40px; height:40px;">
+                            </button>
+                        </form>
                     </td>
                 </tr>
             }

@@ -43,6 +43,8 @@ namespace Monetrix.Models
         [RegularExpression(@"^\d{11}$", ErrorMessage = "Phone number must be 11 digits.")]
         public string Phone { get; set; } = string.Empty;
 
+        public bool IsDeleted { get; set; } = false;
+
         public Gender Gender { get; set; }
         public ICollection<Account> Accounts { get; set; } = new List<Account>();
         public ICollection<Loan> Loans { get; set; } = new List<Loan>();

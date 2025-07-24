@@ -44,7 +44,11 @@
                 @if (User.IsInRole("Admin") || User.IsInRole("Accountant"))
                 {
                     <a asp-action="Edit" asp-route-id="@Model.AccountId" class="btn btn-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@Model.AccountId" class="btn btn-danger">Delete</a>
+
+                    <form asp-action="MarkAsClose" sp-route-id="@Model.AccountId" method="post" onsubmit="return confirm('Are you sure you want to close this account?');" style="display:inline">
+                            <input type="hidden" name="id" value="@Model.AccountId" />
+                            <button type="submit" class="btn btn-danger"">Close Account</button>
+                        </form>
                 }
                 @{
                     var returnUrl = Context.Request.Query["returnUrl"].ToString();

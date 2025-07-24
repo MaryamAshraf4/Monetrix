@@ -45,7 +45,11 @@
                 @if (User.IsInRole("Admin") || User.IsInRole("LoanOfficer"))
                 {
                     <a asp-action="Edit" asp-route-id="@Model?.LoanId" class="btn btn-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@Model?.LoanId" class="btn btn-danger">Delete</a>
+
+                    <form asp-action="MarkasCompleted" asp-route-id="@Model?.LoanId"  method="post" onsubmit="return confirm('Are you sure this loan is completed?');" style="display:inline">
+                        <input type="hidden" name="id" value="@Model?.LoanId" />
+                        <button type="submit" title="Delete" class="btn btn-danger">Mark as Completed</button>
+                    </form>
                 }
                 @{
                     var returnUrl = Context.Request.Query["returnUrl"].ToString();

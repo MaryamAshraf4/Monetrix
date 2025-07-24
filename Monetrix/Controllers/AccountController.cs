@@ -90,25 +90,15 @@ namespace Monetrix.Controllers
             }
         }
         [Authorize(Roles = "Admin, Accountant")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            var account = await _accountRepository.GetAccountByIdAsync(id);
-
-            if (account == null)
-                return NotFound();
-
-            return View(account);
-        }
-        [Authorize(Roles = "Admin, Accountant")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> MarkAsClose(int id, IFormCollection collection)
         {
             try
             {
                 var account = await _accountRepository.GetAccountByIdAsync(id);
 
-                await _accountRepository.DeleteAccountAsync(id);
+                await _accountRepository.CloseAccountAsync(id);
                 return RedirectToAction("Details", "Customer", new { id = account.CustomerId });
             }
             catch

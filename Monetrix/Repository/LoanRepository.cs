@@ -18,12 +18,12 @@ namespace Monetrix.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteLoanAsync(int id)
+        public async Task CompletedLoanAsync(int id)
         {
            var loan = await GetLoanByIdAsync(id);
             if (loan != null)
             {
-                _context.Loans.Remove(loan);
+                loan.Status = Enums.LoanStatus.Completed;
                 await _context.SaveChangesAsync();
             }
         }

@@ -107,26 +107,17 @@ namespace Monetrix.Controllers
                 return View();
             }
         }
-        [Authorize(Roles = "Admin, LoanOfficer")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            var loan = await _loanRepository.GetLoanByIdAsync(id);
-
-            if (loan == null)
-                return NotFound();
-
-            return View(loan);
-        }
+ 
         [Authorize(Roles = "Admin, LoanOfficer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> MarkasCompleted(int id, IFormCollection collection)
         {
             try
             {
                 var loan = await _loanRepository.GetLoanByIdAsync(id);
 
-                await _loanRepository.DeleteLoanAsync(id);
+                await _loanRepository.CompletedLoanAsync(id);
                 return RedirectToAction(nameof(Details), nameof(Customer), new { id = loan.CustomerId });
             }
             catch

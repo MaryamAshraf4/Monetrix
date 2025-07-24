@@ -63,6 +63,7 @@
         <table>
             <thead class="thead-dark">
                 <tr>
+                    <th>Is Active</th>
                     <th>Account Number</th>
                     <th>Type</th>
                     <th>Balance</th>
@@ -73,6 +74,7 @@
                 @foreach (var account in Model.Accounts)
                 {
                     <tr>
+                        <td>@account.IsActive</td>
                         <td>@account.AccountNumber</td>
                         <td>@account.AccountType</td>
                         <td>@account.Balance.ToString("C")</td>

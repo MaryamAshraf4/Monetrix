@@ -1,17 +1,17 @@
-﻿@model IEnumerable<Monetrix.Models.AppUser>
+﻿@model IEnumerable<Monetrix.Models.Customer>
 @{
-    ViewData["Title"] = "Archived Employees";
+    ViewData["Title"] = "Customers";
 }
 
 @if ((Model != null && Model.Any()) || !string.IsNullOrWhiteSpace(ViewBag.FullName))
 {
-    <form method="get" asp-action="Archive" class="d-flex align-items-center justify-content-center gap-2 mb-3">
+    <form method="get" asp-action="Index" class="d-flex align-items-center justify-content-center gap-2 mb-3">
         <input type="text"
                name="FullName"
                id="searchBox"
                value="@ViewBag.FullName"
                class="form-control"
-               placeholder="Search by name or email"
+               placeholder="Search by name"
                style="width: 400px; height: 40px; font-size: 16px; border-radius: 20px; padding: 0 15px;" />
 
         <button type="submit"
@@ -22,8 +22,8 @@
     </form>
 }
 
-<div id="userTable">
-    @Html.Partial("~/Views/PartialViews/_ArchiveAppUserTable.cshtml", Model)
+<div id="customerTable">
+    @Html.Partial("~/Views/PartialViews/_ArchiveCustomerTable.cshtml", Model)
 </div>
 
 @section Scripts {
@@ -31,10 +31,11 @@
         $(document).ready(function () {
             $('#searchBox').on('input', function () {
                 var value = $(this).val();
-                $.get('@Url.Action("Archive", "AppUser")', { FullName: value }, function (data) {
-                    $('#userTable').html(data);
+                $.get('@Url.Action("Archive", "Customer")', { FullName: value }, function (data) {
+                    $('#customerTable').html(data);
                 });
             });
         });
     </script>
 }
+

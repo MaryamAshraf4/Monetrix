@@ -8,6 +8,6 @@ namespace Monetrix.IRepository
         Task<IEnumerable<Loan>> GetAllLoansAsync(); 
         Task AddLoanAsync(Loan loan);
         Task UpdateLoanAsync(Loan loan);
-        Task DeleteLoanAsync(int id);
+        Task CompletedLoanAsync(int id);
     }
 }

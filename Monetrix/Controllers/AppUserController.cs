@@ -41,7 +41,7 @@ namespace Monetrix.Controllers
 
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
-                return PartialView("~/Views/PartialViews/_ArchiveTable.cshtml", appUsers);
+                return PartialView("~/Views/PartialViews/_ArchiveAppUserTable.cshtml", appUsers);
             }
 
             return View(appUsers);
@@ -135,14 +135,6 @@ namespace Monetrix.Controllers
             }
         }
 
-        public async Task<ActionResult> Delete(string id)
-        {
-            var appUser = await _AppUserRepository.GetAppUserByIdAsync(id);
-            if (appUser == null)
-                return NotFound();
-            return View(appUser); ;
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(string id, IFormCollection collection)
@@ -158,8 +150,8 @@ namespace Monetrix.Controllers
             }
         }
 
-        public async Task<ActionResult> Reactivate(string id) {
-
+        public async Task<ActionResult> Reactivate(string id)
+        {
             var appUser = await _AppUserRepository.GetAppUserByIdAsync(id);
 
             if (appUser != null)
