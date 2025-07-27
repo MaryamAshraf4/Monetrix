@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Monetrix.IRepository;
 using Monetrix.Models;
 using Monetrix.ViewModels;
@@ -12,13 +13,15 @@ namespace Monetrix.Controllers
     [Authorize(Roles = "Admin")]
     public class AppUserController : Controller
     {
+        private readonly AppDbContext _context;
         private readonly IAppUserRepository _AppUserRepository;
         private readonly UserManager<AppUser> _userManager;
 
-        public AppUserController(IAppUserRepository appUserRepository, UserManager<AppUser> userManager)
+        public AppUserController(IAppUserRepository appUserRepository, UserManager<AppUser> userManager, AppDbContext context)
         {
             _AppUserRepository = appUserRepository;
             _userManager = userManager;
+            _context = context;
         }
         public async Task<ActionResult> Index(string? FullName)
         {
@@ -163,7 +166,7 @@ namespace Monetrix.Controllers
                 {
                     appUser.IsActive = true;
                     appUser.IsFirstLogin = true;
-                    await _AppUserRepository.UpdateAppUserAsync(appUser);
+                    await _userManager.UpdateAsync(appUser);
                 }
             }           
             return RedirectToAction(nameof(Index));
